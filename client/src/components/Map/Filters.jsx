@@ -2,12 +2,12 @@ import React from 'react';
 import FilteredItems from './FilteredItems.jsx';
 
 const Filters =  (props) => {
-    let {filters} = props;
+    let {filters, removeFilter} = props;
     if (filters !== undefined && filters.length > 0) {
         return (
             <div>
-                <form>
-                    Find spots near zipcode: <input onChange={(e) => props.handleZipFilter(e)} type='number'></input>
+                <form id='filterForm'>
+                    Find spots near zipcode: <input id='zip' onChange={(e) => props.handleZipFilter(e)} type='number'></input>
                     On date: <input type='date'></input>
                     In the: <select>
                         <option>-</option>
@@ -17,16 +17,16 @@ const Filters =  (props) => {
                         <option>Evening 5pm-10pm</option>
                         <option>Late Evening 10pm-2am </option>
                     </select>
-                    <button onClick={e => props.handleFilterSubmit(e)}>Filter</button>
+                    <button onClick={(e) => props.handleFilterSubmit(e)}>Filter</button>
                 </form>
                 <div>
-                    <FilteredItems filters={filters} />
+                    <FilteredItems filters={filters} removeFilter={removeFilter} />
                 </div>
             </div>
         )
     } else {
         return (
-            <form>
+            <form id='filterForm'>
                     Find spots near zipcode: <input onChange={(e) => props.handleZipFilter(e)} type='number'></input>
                     On date: <input type='date'></input>
                     In the: <select>
@@ -37,7 +37,7 @@ const Filters =  (props) => {
                         <option>Evening 5pm-10pm</option>
                         <option>Late Evening 10pm-2am </option>
                     </select>
-                    <button>Filter</button>
+                    <button onClick={(e) => props.handleFilterSubmit(e)}>Filter</button>
                 </form>
         )
     }
