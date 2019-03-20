@@ -110,15 +110,24 @@ class MainMapContainer extends React.Component {
     removeFilter(e) {
         e.preventDefault();
         let currZip = e.target.id;
-        let {allFilteredZips} =  this.state;
+        let {filteredZips} =  this.state;
         let newZips = [];
-        for (let zip of allFilteredZips) {
+        for (let zip of filteredZips) {
             if (zip !== currZip) {
                 newZips.push(zip)
             }
         }
-        this.setState({allFilteredZips: newZips})
-        this.filterByZip(newZips);
+        if (newZips.length > 0) {
+            this.setState({filteredZips: newZips, allFilters: newZips})
+            this.filterByZip(newZips);
+        } else {
+            this.setState({
+                filteredZips: [], 
+                allFilters: [],
+                filteredSpots: this.state.spots
+            })
+        }
+        
     }
 
     render() {
