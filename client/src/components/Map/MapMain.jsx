@@ -13,39 +13,61 @@ class MainMapContainer extends React.Component {
 		this.state = {
 			spots: [
 				{
-					address: '17933 Castellammare Dr, Pacific Palisades, CA 90272',
-					longitude: -118.565495,
-					latitude: 34.042962,
-					name: `Taylor's house`
+					id: 1, 
+					owner_id: 1,
+					parking_address: '17933 Castellammare Dr, Pacific Palisades, CA 90272',
+					longitudes: -118.565495,
+					latitudes: 34.042962,
+					directions: 'directions are here',
+					weekday_rate: 20,
+					weekend_rate: 40,
+					monday: '00:00-23:59',
+					tuesday: '08:00-20:00',
+					wednesday: '16:00-23:59',
+					thursday: '13:30-19:00',
+					friday: null,
+					saturday: '10:30-23:30',
+					sunday: '09:00-18:00'
+					// name: `Taylor's house`
 				},
 				{
-					address: '563 Via de la Paz, Pacific Palisades, CA 90272',
-					longitude: -118.529235,
-					latitude: 34.039780,
+					id: 2, 
+					owner_id: 1,
+					parking_address: '563 Via de la Paz, Pacific Palisades, CA 90272',
+					longitudes: -118.529235,
+					latitudes: 34.039780,
 					name: 'Another house'
 				},
 				{
-					address: '1900 Glendon Ave, Los Angeles, CA 90025',
-					longitude: -118.434037,
-					latitude: 34.048813,
+					id: 3, 
+					owner_id: 1,
+					parking_address: '1900 Glendon Ave, Los Angeles, CA 90025',
+					longitudes: -118.434037,
+					latitudes: 34.048813,
 					name: `Taylor's apartment`
 				},
 				{
-					address: '6060 Center Dr, Los  Angeles,  CA 90045',
-					longitude: -118.391106,
-					latitude: 33.976126,
+					id: 1, 
+					owner_id: 1,
+					parking_address: '6060 Center Dr, Los  Angeles,  CA 90045',
+					longitudes: -118.391106,
+					latitudes: 33.976126,
 					name: 'Hack Reactor @ Galvanize'
 				},
 				{
-					address: '811 W 7th St, Los  Angeles,  CA 90017',
-					longitude: -118.258964,
-					latitude: 34.049140,
+					id: 1, 
+					owner_id: 1,
+					parking_address: '811 W 7th St, Los  Angeles,  CA 90017',
+					longitudes: -118.258964,
+					latitudes: 34.049140,
 					name: 'WeWork Fine Arts'
 				},
 				{
-					address: '9149 S Sepulveda Blvd, Los Angeles, CA 90045',
-					longitude: -118.396787,
-					latitude: 33.953685, 
+					id: 1, 
+					owner_id: 1,
+					parking_address: '9149 S Sepulveda Blvd, Los Angeles, CA 90045',
+					longitudes: -118.396787,
+					latitudes: 33.953685, 
 					name: 'In n Out'
 				}
 			],
@@ -110,7 +132,7 @@ class MainMapContainer extends React.Component {
 		let newFilteredZips = [];
 		for (let zip of zips) {
 			for (let spot of spots) {
-				if (spot.address.includes(zip)) {
+				if (spot.parking_address.includes(zip)) {
 					newFilteredZips.push(spot)
 				}
 			}
@@ -124,7 +146,7 @@ class MainMapContainer extends React.Component {
 		let bounds = new google.maps.LatLngBounds();
 		let allZips = [];
 		for (let spot of spots) {
-			allZips.push({ lat: spot.latitude, lng: spot.longitude })
+			allZips.push({ lat: spot.latitudes, lng: spot.longitudes })
 		}
 		for (let point of allZips) {
 			bounds.extend(point);
@@ -213,7 +235,7 @@ class MainMapContainer extends React.Component {
 			position: 'relative',
 			padding: '10px'
 		}
-		const { filteredSpots, allFilters, bounds, filtered } = this.state;
+		const { filteredSpots, allFilters, bounds, filtered, activeMarker, selectedPlace, showingInfo } = this.state;
 
 		return (
 			<div className={styles.wrapper}>
@@ -229,17 +251,15 @@ class MainMapContainer extends React.Component {
 								lat: 34.046281,
 								lng: -118.382902
 							}}
-							// center={this.state.currViewByZip}
 							bounds={bounds}
-							// zoom={12}
 							onClick={this.onMapClick}>
 
 							{filteredSpots.map((spot, i) => {
 								return <Marker
 									key={i}
 									name={spot.name}
-									title={spot.address}
-									position={{ lat: spot.latitude, lng: spot.longitude }}
+									title={spot.parking_address}
+									position={{ lat: spot.latitudes, lng: spot.longitudes }}
 									onClick={this.onMarkerClick}
 									icon={{
 										url: 'https://cdn4.iconfinder.com/data/icons/car-service-1/512/park-512.png',
@@ -249,14 +269,14 @@ class MainMapContainer extends React.Component {
 								/>
 							})}
 
-							<InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfo} >
-								<MarkerInfo selectedPlace={this.state.selectedPlace} />
+							<InfoWindow marker={activeMarker} visible={showingInfo} >
+								<MarkerInfo selectedPlace={selectedPlace} />
 							</InfoWindow>
 
 						</ Map>
-
 					</div>
 				</div>
+
 				<div className={styles.listContainer}>
 					<Listings filteredSpots={filteredSpots} />
 				</div>

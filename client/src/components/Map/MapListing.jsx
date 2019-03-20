@@ -6,7 +6,7 @@ const MapListing = (props) => {
     return (
         <div className={styles.listing}>
             <div><strong>{spot.name}</strong></div>
-            <div>{spot.address}</div>
+            <div>{spot.parking_address}</div>
             <button>Reserve Space</button>
         </div>
     )
