@@ -4,7 +4,7 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import Filters from './Filters.jsx';
 import MarkerInfo from './MarkerInfo.jsx';
 import Listings from './MapListings.jsx';
-import styles from  './styles/MapContainer.css'
+import styles from './styles/MapContainer.css'
 import axios from 'axios';
 
 class MainMapContainer extends React.Component {
@@ -41,9 +41,16 @@ class MainMapContainer extends React.Component {
 					longitude: -118.258964,
 					latitude: 34.049140,
 					name: 'WeWork Fine Arts'
+				},
+				{
+					address: '9149 S Sepulveda Blvd, Los Angeles, CA 90045',
+					longitude: -118.396787,
+					latitude: 33.953685, 
+					name: 'In n Out'
 				}
 			],
 			filteredSpots: [],
+			filtered: false,
 			showingInfo: false,
 			activeMarker: {},
 			selectedPlace: {},
@@ -54,7 +61,7 @@ class MainMapContainer extends React.Component {
 			allFilters: [],
 			// currViewyZip: {},
 			points: [],
-			bounds: null
+			bounds: null,
 		}
 		this.onMarkerClick = this.onMarkerClick.bind(this);
 		this.onMapClick = this.onMapClick.bind(this);
@@ -64,6 +71,8 @@ class MainMapContainer extends React.Component {
 		this.removeFilter = this.removeFilter.bind(this);
 		// this.convertZipToLatLong = this.convertZipToLatLong.bind(this);
 		this.adjustBounds = this.adjustBounds.bind(this);
+		this.findUserLocation = this.findUserLocation.bind(this);
+		this.showPosition = this.showPosition.bind(this);
 	}
 
 	componentDidMount() {
@@ -75,7 +84,7 @@ class MainMapContainer extends React.Component {
 		})
 	}
 
-	onMarkerClick(props, marker, e) {
+	onMarkerClick(props, marker) {
 		this.setState({
 			selectedPlace: props,
 			activeMarker: marker,
@@ -111,23 +120,6 @@ class MainMapContainer extends React.Component {
 		});
 	}
 
-	// convertZipToLatLong(spots) {
-	//     let geocoder = new google.maps.Geocoder();
-	//     let points = [];
-	//     for (let spot of spots) {
-	//         geocoder.geocode({ 'address': `${zip}, US` }, (result, status) => {
-	//             if (status === google.maps.GeocoderStatus.OK) {
-	//                 let lat = result[0].geometry.location.lat();
-	//                 let lng = result[0].geometry.location.lng(); 
-	//                 points.push({lat, lng});
-	//             } else {
-	//                 console.log('zip conversion failed')
-	//             }
-	//         })
-	//     }
-	//     this.setState({points}, () => this.adjustBounds())
-	// }
-
 	adjustBounds(spots) {
 		let bounds = new google.maps.LatLngBounds();
 		let allZips = [];
@@ -140,6 +132,40 @@ class MainMapContainer extends React.Component {
 		this.setState({ bounds });
 	}
 
+	findUserLocation(e) {
+		e.preventDefault();
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(this.showPosition);
+		} else {
+			console.log('Geolocation not supported by this browser')
+		}
+	}
+
+	showPosition(p) {
+		let latlng = new google.maps.LatLng(p.coords.latitude, p.coords.longitude);
+		let geocoder = new google.maps.Geocoder();
+
+		geocoder.geocode({ 'latLng': latlng }, (results, status) => {
+			if (status == google.maps.GeocoderStatus.OK) {
+				if (results[0]) {
+					for (let j = 0; j < results[0].address_components.length; j++) {
+						if (results[0].address_components[j].types[0] === 'postal_code') {
+							console.log("Zip Code: " + results[0].address_components[j].short_name);
+							let zip  = results[0].address_components[j].short_name;
+								this.setState({
+									allFilters: [zip],
+									filteredZips: [zip],
+									filtered: true
+								}, () => this.filterByZip([zip]));
+						}
+					}
+				}
+			} else {
+				console.log("Geocoder failed due to: " + status);
+			}
+		});
+	}
+
 	handleFilterSubmit(e) {
 		e.preventDefault();
 		let { allFilters, zip, filteredZips } = this.state;
@@ -148,7 +174,8 @@ class MainMapContainer extends React.Component {
 			let filters = allFilters.concat(zip);
 			this.setState({
 				allFilters: filters,
-				filteredZips: allFilteredZips
+				filteredZips: allFilteredZips,
+				filtered: true
 			});
 			this.filterByZip(allFilteredZips);
 		}
@@ -173,7 +200,8 @@ class MainMapContainer extends React.Component {
 			this.setState({
 				filteredZips: [],
 				allFilters: [],
-				filteredSpots: this.state.spots
+				filteredSpots: this.state.spots,
+				filtered: false
 			}, () => this.adjustBounds(this.state.filteredSpots))
 		}
 	}
@@ -185,13 +213,13 @@ class MainMapContainer extends React.Component {
 			position: 'relative',
 			padding: '10px'
 		}
-		const { filteredSpots, allFilters, bounds } = this.state;
+		const { filteredSpots, allFilters, bounds, filtered } = this.state;
 
 		return (
 			<div className={styles.wrapper}>
 				<div className={styles.bigMapContainer}>
 					<div className={styles.filterContainer}>
-						<Filters handleZipFilter={this.handleZipFilter} filters={allFilters} handleFilterSubmit={this.handleFilterSubmit} removeFilter={this.removeFilter} />
+						<Filters handleZipFilter={this.handleZipFilter} filters={allFilters} handleFilterSubmit={this.handleFilterSubmit} removeFilter={this.removeFilter} filtered={filtered} findUserLocation={this.findUserLocation} />
 					</div>
 					<div className={styles.mapContainer}>
 						<Map
