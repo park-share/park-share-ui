@@ -1,13 +1,14 @@
 import React from 'react';
 import MapListing from './MapListing';
+import styles from './styles/MapListings.css';
 
 const Listings = (props) => {
     return (
-        <div >
+        <div className={styles.listingsContainer}>
             <h3>Spots:</h3>
-            <ul>{props.filteredSpots.map((spot, i) => {
+            <div>{props.filteredSpots.map((spot, i) => {
                 return <MapListing spot={spot} key={i} />
-            })}</ul>
+            })}</div>
         </div>
         
     )
