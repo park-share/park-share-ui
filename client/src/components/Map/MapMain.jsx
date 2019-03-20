@@ -1,7 +1,9 @@
 import React from 'react';
 import mapConfig from './mapconfig.js';
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+import { Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import Filters from './Filters.jsx';
+import MarkerInfo from './MarkerInfo.jsx';
+import Listings from './MapListings.jsx';
 import axios from 'axios';
 
 class MainMapContainer extends React.Component {
@@ -19,7 +21,7 @@ class MainMapContainer extends React.Component {
                     address: '1900 Glendon Ave, Los Angeles, CA 90025',
                     longitude: -118.434037,
                     latitude: 34.048813,
-                    name: `Taylor's other house`
+                    name: `Taylor's apartment`
                 },
                 {
                     address: '6060 Center Dr, Los  Angeles,  CA 90045',
@@ -42,7 +44,10 @@ class MainMapContainer extends React.Component {
             filteredZips: [],
             filteredDates: undefined,
             filteredTimes: undefined,
-            allFilters: []
+            allFilters: [],
+            // currViewyZip: {},
+            points: [],
+            bounds: null
         }
         this.onMarkerClick = this.onMarkerClick.bind(this);
         this.onMapClick = this.onMapClick.bind(this);
@@ -50,10 +55,22 @@ class MainMapContainer extends React.Component {
         this.handleFilterSubmit = this.handleFilterSubmit.bind(this);
         this.filterByZip = this.filterByZip.bind(this);
         this.removeFilter = this.removeFilter.bind(this);
+        // this.convertZipToLatLong = this.convertZipToLatLong.bind(this);
+        this.adjustBounds = this.adjustBounds.bind(this);
     }
 
     componentDidMount() {
-        this.setState({ filteredSpots: this.state.spots })
+        // let allZips = [];
+        let {spots} = this.state;
+        // for (let spot of spots) {
+        //     allZips.push({lat: spot.latitude, lng: spot.longitude})
+        // }
+        this.setState({ 
+            filteredSpots: spots
+            // points: allZips
+         }, () => {
+             this.adjustBounds(this.state.filteredSpots);
+         })
     }
 
     onMarkerClick(props, marker, e) {
@@ -87,7 +104,39 @@ class MainMapContainer extends React.Component {
                 }
             }
         }
-        this.setState({filteredSpots: newFilteredZips});
+        this.setState({filteredSpots: newFilteredZips}, () => {
+            this.adjustBounds(this.state.filteredSpots)
+        });
+    }
+
+    // convertZipToLatLong(spots) {
+    //     let geocoder = new google.maps.Geocoder();
+    //     let points = [];
+    //     for (let spot of spots) {
+    //         geocoder.geocode({ 'address': `${zip}, US` }, (result, status) => {
+    //             if (status === google.maps.GeocoderStatus.OK) {
+    //                 let lat = result[0].geometry.location.lat();
+    //                 let lng = result[0].geometry.location.lng(); 
+    //                 points.push({lat, lng});
+    //             } else {
+    //                 console.log('zip conversion failed')
+    //             }
+    //         })
+    //     }
+    //     console.log('points in conversion', points)
+    //     this.setState({points}, () => this.adjustBounds())
+    // }
+
+    adjustBounds(spots) {
+        let bounds = new google.maps.LatLngBounds();
+        let allZips = [];
+        for (let spot of spots) {
+            allZips.push({lat: spot.latitude, lng: spot.longitude})
+        }
+        for (let point of allZips) {
+            bounds.extend(point);
+        }
+        this.setState({bounds});
     }
 
     handleFilterSubmit(e) {
@@ -103,8 +152,7 @@ class MainMapContainer extends React.Component {
             this.filterByZip(allFilteredZips);
         }
         
-        document.getElementById('filterForm').reset();
-        
+        document.getElementById('filterForm').reset(); 
     }
 
     removeFilter(e) {
@@ -125,28 +173,33 @@ class MainMapContainer extends React.Component {
                 filteredZips: [], 
                 allFilters: [],
                 filteredSpots: this.state.spots
-            })
-        }
-        
+            }, () => this.adjustBounds(this.state.filteredSpots))
+        }   
     }
 
     render() {
-        const style = {
+        const mapStyle = {
             width: '90%',
             height: '90%'
         }
-        const { filteredSpots, allFilters } = this.state;
+        const { filteredSpots, allFilters, bounds } = this.state;
+
         return (
             <div>
                 <Filters handleZipFilter={this.handleZipFilter} filters={allFilters} handleFilterSubmit={this.handleFilterSubmit} removeFilter={this.removeFilter} />
+
+                <Listings filteredSpots={filteredSpots} />
+
                 <Map
                     google={this.props.google}
-                    style={style}
+                    style={mapStyle}
                     initialCenter={{
                         lat: 34.046281,
                         lng: -118.382902
                     }}
-                    zoom={12}
+                    // center={this.state.currViewByZip}
+                    bounds={bounds}
+                    // zoom={12}
                     onClick={this.onMapClick}>
 
                     {filteredSpots.map((spot, i) => {
@@ -163,13 +216,14 @@ class MainMapContainer extends React.Component {
                             }}
                         />
                     })}
+
                     <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfo} >
-                        <div>
-                            <h1>{this.state.selectedPlace.name}</h1>
-                            {this.state.selectedPlace.title}
-                        </div>
+                        <MarkerInfo selectedPlace={this.state.selectedPlace} />
                     </InfoWindow>
+
                 </ Map>
+
+                
             </div>
         )
     }
