@@ -1,9 +1,10 @@
 import React from 'react';
+import styles from './styles/MapListing.css';
 
 const MapListing = (props) => {
     let {spot} = props;
     return (
-        <div>
+        <div className={styles.listing}>
             <div><strong>{spot.name}</strong></div>
             <div>{spot.address}</div>
             <button>Reserve Space</button>

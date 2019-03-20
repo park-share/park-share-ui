@@ -1,0 +1,5 @@
+.listingsContainer {
+    padding: 5px;
+    width: 100%;
+    overflow: scroll;
+}
