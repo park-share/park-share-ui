@@ -97,9 +97,9 @@ class MainMapContainer extends React.Component {
 			endDate: null,
 			endTime: null,
 			filteredZips: [],
-			filteredDates: undefined,
+			// filteredDates: undefined,
 			// filteredTimes: undefined,
-			allFilters: [],
+			// allFilters: [],
 			points: [],
 			bounds: null,
 			dateRange: null,
@@ -208,7 +208,7 @@ class MainMapContainer extends React.Component {
 	// }
 
 	filterByZip(zips) {
-		let { spots, startDate, startTime, endDate,  endTime } = this.state;
+		let { spots, startDate, startTime, endDate, endTime } = this.state;
 		let newFilteredZips = [];
 		for (let zip of zips) {
 			let found = false;
@@ -219,6 +219,7 @@ class MainMapContainer extends React.Component {
 				}	
 			}
 			if (!found) {
+				let newFilters  = this.state.allFilteredZips
 				this.setState({errorMessage: `No spots available in ${zip}`})
 			}
 		}
@@ -281,10 +282,11 @@ class MainMapContainer extends React.Component {
 		e.preventDefault();
 		let { allFilters, zip, filteredZips } = this.state;
 		if (zip && !filteredZips.includes(zip)) {
+			//add greater filters  in other file  instead of here
 			let allFilteredZips = filteredZips.concat(zip);
-			let filters = allFilters.concat(zip);
+			// let filters = allFilters.concat(zip);
 			this.setState({
-				allFilters: filters,
+				// allFilters: filters,
 				filteredZips: allFilteredZips,
 				filtered: true,
 				errorMessage: null
@@ -338,12 +340,12 @@ class MainMapContainer extends React.Component {
 
 	removeFilter(e) {
 		e.preventDefault();
+		let { filteredZips } = this.state;
 
 		if (e.target.id.length > 5) {
-			this.setState({ dateRange: null })
+			this.setState({ dateRange: null, startDate: null, startTime: null, endDate: null, endTime: null  })
 		} else {
 			let currZip = e.target.id;
-			let { filteredZips } = this.state;
 			let newZips = [];
 			for (let zip of filteredZips) {
 				if (zip !== currZip) {
@@ -351,14 +353,16 @@ class MainMapContainer extends React.Component {
 				}
 			}
 			if (newZips.length > 0) {
-				this.setState({ filteredZips: newZips, allFilters: newZips })
+				this.setState({ filteredZips: newZips })
 				this.filterByZip(newZips);
 			} else {
+				if (!this.state.startDate) {
+					this.setState({filtered:  false})
+				}
 				this.setState({
 					filteredZips: [],
-					allFilters: [],
+					// allFilters: [],
 					filteredSpots: this.state.spots,
-					filtered: false
 				}, () => this.adjustBounds(this.state.filteredSpots))
 			}
 		}
@@ -371,13 +375,13 @@ class MainMapContainer extends React.Component {
 			position: 'relative',
 			padding: '10px'
 		}
-		const { filteredSpots, allFilters, bounds, filtered, activeMarker, selectedPlace, showingInfo, startDate, dateRange, errorMessage } = this.state;
+		const { filteredSpots, bounds, filteredZips, activeMarker, selectedPlace, showingInfo, startDate, dateRange, errorMessage, filtered } = this.state;
 
 		return (
 			<div className={styles.wrapper}>
 				<div className={styles.bigMapContainer}>
 					<div className={styles.filterContainer}>
-						<Filters handleZipFilter={this.handleZipFilter} filters={allFilters} handleZipFilterSubmit={this.handleZipFilterSubmit} removeFilter={this.removeFilter} filtered={filtered} findUserLocation={this.findUserLocation} handleDateFilter={this.handleDateFilter} startDate={startDate} handleDateFilterSubmit={this.handleDateFilterSubmit} dateRange={dateRange} errorMessage={errorMessage} />
+						<Filters handleZipFilter={this.handleZipFilter} filtered={filtered} handleZipFilterSubmit={this.handleZipFilterSubmit} removeFilter={this.removeFilter} filteredZips={filteredZips} findUserLocation={this.findUserLocation} handleDateFilter={this.handleDateFilter} startDate={startDate} handleDateFilterSubmit={this.handleDateFilterSubmit} dateRange={dateRange} errorMessage={errorMessage} />
 					</div>
 
 					<div className={styles.mapContainer}>

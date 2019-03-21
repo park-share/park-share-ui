@@ -2,14 +2,14 @@ import React from 'react';
 import FilteredItems from './FilteredItems.jsx';
 
 const Filters = (props) => {
-	let { filters, removeFilter, filtered, handleZipFilter, findUserLocation, handleZipFilterSubmit, handleDateFilter, startDate, handleDateFilterSubmit, dateRange, errorMessage } = props;
+	let { removeFilter, filtered, handleZipFilter, findUserLocation, handleZipFilterSubmit, handleDateFilter, startDate, handleDateFilterSubmit, dateRange, errorMessage, filteredZips } = props;
 
 	let currentFilters = <div><br/></div>;
 	// if (errorMessage) {
 	// 	currentFilters = errorMessage
 	// } else 
 	if (filtered) {
-		currentFilters = <div><FilteredItems filters={filters} dateRange={dateRange} removeFilter={removeFilter} />{errorMessage}</div>
+		currentFilters = <div><FilteredItems filteredZips={filteredZips} dateRange={dateRange} removeFilter={removeFilter} />{errorMessage}</div>
 	}
 
 	let today = new Date();
