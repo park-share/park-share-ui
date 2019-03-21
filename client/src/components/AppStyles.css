@@ -1,5 +1,20 @@
 .title {
-    font-size: 50px;
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
+  font-size: 50px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top:15%
+}
+.backgrounds {
+  background-image: url("https://s3-us-west-1.amazonaws.com/uniqloassets/LG_1459120627454.jpg");
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: none;
+  /* opacity: 0; */
+  z-index: 0;
+  animation: imageAnimation 36s linear infinite 0s; 
 }
