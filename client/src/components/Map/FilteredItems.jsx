@@ -2,10 +2,13 @@ import React from 'react';
 import FilteredItem from './FilteredItem.jsx';
 
 const FilteredItems = (props) => {
-    let {filters, removeFilter, dateRange} = props;
-    let allFilters =  filters
+    let {filteredZips, removeFilter, dateRange} = props;
+    let allFilters = [];
     if (dateRange !== null) {
-        allFilters = filters.concat(dateRange);
+        allFilters = allFilters.concat(dateRange);
+    }
+    if (filteredZips.length > 0 ) {
+        allFilters = allFilters.concat(filteredZips);
     }
     // let allFilters = filters.concat(dateRange);
     return (
