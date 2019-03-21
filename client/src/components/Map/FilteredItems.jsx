@@ -2,10 +2,15 @@ import React from 'react';
 import FilteredItem from './FilteredItem.jsx';
 
 const FilteredItems = (props) => {
-    let {filters, removeFilter} = props;
+    let {filters, removeFilter, dateRange} = props;
+    let allFilters =  filters
+    if (dateRange !== null) {
+        allFilters = filters.concat(dateRange);
+    }
+    // let allFilters = filters.concat(dateRange);
     return (
         <div>
-            {filters.map((item, i) => {
+            {allFilters.map((item, i) => {
                 return <FilteredItem key={i} item={item} removeFilter={removeFilter} />
             })}
         </div>
