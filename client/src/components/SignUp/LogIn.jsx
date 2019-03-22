@@ -34,19 +34,19 @@ class LoginPage extends React.Component {
   }
   render() {
     return (
-      <div className={styles.login}>
-        <h1>Log in</h1>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            email:
-            <input id="email" onChange={this.handleInput} />
-          </label>
-          <label>
-            password:
-            <input id="user_passowrd" onChange={this.handleInput} />
-          </label>
-          <button type="submit" onClick={() => { this.props.changePage() }}>Log in</button>
-        </form>
+      <div className={styles.info}>
+        <div className={styles.signup}>
+          <form onSubmit={this.handleSubmit}>
+              <input id="email" onChange={this.handleInput} placeholder='email' />
+              <br />
+              <br />
+              <input id="user_passowrd" onChange={this.handleInput} placeholder='password' />
+            <br />
+            <br />
+            <button type="submit" onClick={() => { this.props.changePage() }}>Log in</button>
+          </form>
+        </div>
+
       </div>
     );
   }
