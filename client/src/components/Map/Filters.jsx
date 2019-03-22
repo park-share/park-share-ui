@@ -5,11 +5,13 @@ const Filters = (props) => {
 	let { removeFilter, filtered, handleZipFilter, findUserLocation, handleZipFilterSubmit, handleDateFilter, startDate, handleDateFilterSubmit, dateRange, errorMessage, filteredZips } = props;
 
 	let currentFilters = <div><br/></div>;
-	// if (errorMessage) {
-	// 	currentFilters = errorMessage
-	// } else 
+	let error = <div></div>
+
 	if (filtered) {
-		currentFilters = <div><FilteredItems filteredZips={filteredZips} dateRange={dateRange} removeFilter={removeFilter} />{errorMessage}</div>
+		currentFilters = <div><FilteredItems filteredZips={filteredZips} dateRange={dateRange} removeFilter={removeFilter} /></div>
+	}
+	if (errorMessage) {
+		error = <div>{errorMessage}</div>
 	}
 
 	let today = new Date();
@@ -54,6 +56,7 @@ const Filters = (props) => {
 				<button onClick={(e) => handleDateFilterSubmit(e)}>Filter</button>
 			</form>
 			{currentFilters}
+			{error}
 		</div>
 	)
 
