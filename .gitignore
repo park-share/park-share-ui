@@ -33,3 +33,5 @@ bundle.js
 
 #config files
 mapconfig.js
+
+client/.DS_Store
