@@ -1,5 +1,6 @@
 import React from 'react';
 import FilteredItems from './FilteredItems.jsx';
+import styles from './styles/Filters.css';
 
 const Filters = (props) => {
 	let { removeFilter, filtered, handleZipFilter, findUserLocation, handleZipFilterSubmit, handleDateFilter, startDate, handleDateFilterSubmit, dateRange, errorMessage, filteredZips } = props;
@@ -41,10 +42,10 @@ const Filters = (props) => {
 
 	return (
 		<div>
-			<form id='filterZipForm'>
-				Find spots near zipcode: <input id='zip' onChange={(e) => handleZipFilter(e)} type='number'></input><button onClick={(e) => handleZipFilterSubmit(e)}>Filter</button> OR <button onClick={(e) => findUserLocation(e)}>Find locations near me</button><br /><br />
+			<form id='filterZipForm' className={styles.zipForm}>
+				Find spots near zipcode: <input id='zip' onChange={(e) => handleZipFilter(e)} type='number'></input><button onClick={(e) => handleZipFilterSubmit(e)}>Filter</button> OR <button onClick={(e) => findUserLocation(e)}>Find locations near me</button><br />
 			</form>
-			<form id='filterDateForm'>
+			<form id='filterDateForm' className={styles.dateForm}>
 				Start date: <input id='startDate' type='date' min={today} max={maxDate} onChange={(e) => handleDateFilter(e)} required></input>
 
 				Start time: <input id='startTime' type='time' step='1800' onChange={(e) => handleDateFilter(e)} required></input> <br />

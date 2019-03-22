@@ -1,6 +1,6 @@
 .wrapper {
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 2fr 1fr;
     grid-gap: 10px;
     margin-left: 20px;
     margin-right: 20px;
@@ -8,14 +8,15 @@
 }
 
 .bigMapContainer {
-    grid-column: 1 / 4;
+    grid-column: 1 / 2;
 }
 
 .listContainer {
-    grid-column: 4 / 5;
+    grid-column: 2 / 3;
     /* border: 1px solid black; */
     padding: 10px;
     margin: 10px;
+    /* height: 200px; */
 }
 
 .filterContainer {
