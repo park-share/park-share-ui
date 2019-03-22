@@ -11,6 +11,9 @@ class MainMapContainer extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			checkout: false,
+			checkoutComplete: false,
+			reserveSpot: null,
 			spots: [
 				{
 					id: 1,
@@ -118,6 +121,7 @@ class MainMapContainer extends React.Component {
 		this.showPosition = this.showPosition.bind(this);
 		this.filterByDateRange = this.filterByDateRange.bind(this);
 		this.handleReserve = this.handleReserve.bind(this);
+		this.handleCheckout = this.handleCheckout.bind(this);
 	}
 
 	componentDidMount() {
@@ -133,15 +137,35 @@ class MainMapContainer extends React.Component {
 	//for Michael - not working for map yetA
 	handleReserve(e, spot) {
 		e.preventDefault();
+		this.setState({
+			reserveSpot: spot
+		})
 		//date range
-		let {startDate, startTime, endDate, endTime} = this.state;
+		// console.log('spot clicked', spot)
+	}
+
+	async handleCheckout(ev) {
+		let {startDate, startTime, endDate, endTime, reserveSpot} = this.state;
 		startTime = 'T' + startTime + ':00';
 		endTime = 'T' + endTime + ':00';
 		let start = new Date(startDate + startTime);
 		let end = new Date(endDate + endTime);
+    let {token} = await this.props.stripe.createToken({name: "Name"});
 
-		console.log('spot clicked', spot)
-	}
+    axios
+      .post('/charge', {
+				token: token.id,
+				reserveStart: start,
+				reserveEnd: end,
+				space: reserveSpot
+			})
+      .then(() => {
+        this.setState({
+					checkoutComplete: true
+				})
+      })
+
+  }
 
 	onMarkerClick(props, marker) {
 		this.setState({
@@ -405,6 +429,22 @@ class MainMapContainer extends React.Component {
 		}
 		const { filteredSpots, bounds, filteredZips, activeMarker, selectedPlace, showingInfo, startDate, dateRange, errorMessage, filtered } = this.state;
 
+		const renderCheckout;
+		
+		if (this.state.checkout) {
+			renderCheckout = (
+				<StripeProvider apiKey="pk_test_pQhnuyRSReWhY1em9BsAasjo00RX9j436Y">
+					<div className="example">
+					<h1>React Stripe Elements Example</h1>
+						<Elements>
+							<CheckoutForm submit={this.handleCheckout}/>
+						</Elements>
+					</div>
+				</StripeProvider>
+			)
+		} 
+
+		if (this.state.checkoutComplete) return <h1>Purchase Complete</h1>
 		return (
 			<div className={styles.wrapper}>
 				<div className={styles.bigMapContainer}>
@@ -451,7 +491,7 @@ class MainMapContainer extends React.Component {
 				<div className={styles.listContainer}>
 					<Listings filteredSpots={filteredSpots} handleReserve={this.handleReserve} />
 				</div>
-
+				{renderCheckout}
 			</div>
 		)
 	}
