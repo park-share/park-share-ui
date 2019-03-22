@@ -21,7 +21,8 @@
     "google-maps": "^3.3.0",
     "google-maps-react": "^2.0.2",
     "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "react-dom": "^16.8.4",
+    "react-stripe-elements": "^2.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",
