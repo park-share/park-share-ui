@@ -43,7 +43,7 @@ class SignUp extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className={styles.signup}>
         <h1>enter your info</h1>
         <form onSubmit={this.handleSubmit}>
           <label>
@@ -70,7 +70,14 @@ class SignUp extends React.Component {
             phone:
             <input id="phone" onChange={this.handleInput} />
           </label>
-          <button type="submit" onClick={()=>{this.props.changePage()}}>Sign up</button>
+          <button
+            type="submit"
+            onClick={() => {
+              this.props.changePage();
+            }}
+          >
+            Sign up
+          </button>
         </form>
       </div>
     );

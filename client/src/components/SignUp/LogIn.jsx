@@ -1,5 +1,5 @@
 import React from 'react';
-
+import styles from './SignUp.css'
 // import { userService } from '../_services';
 
 class LoginPage extends React.Component {
@@ -34,7 +34,7 @@ class LoginPage extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className={styles.login}>
         <h1>Log in</h1>
         <form onSubmit={this.handleSubmit}>
           <label>
