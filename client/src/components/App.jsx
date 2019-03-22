@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './AppStyles.css';
-import SignUp from './SignUp/SignMain.jsx';
+import Parent from "./SignUp/Parent.jsx";
 import Map from './Map/MapMain.jsx';
 
 class App extends React.Component {
@@ -23,12 +23,12 @@ class App extends React.Component {
         let { page } = this.state;
         if (page === 1) {
             return (
-                <div className={styles.backgrounds}>
-                    <div className={styles.title}>ParkShare</div>
-                    <SignUp />
-                    <button onClick={this.changePage}>Go to map</button>
-                </div>
-            )
+              <div className={styles.backgrounds}>
+                <div className={styles.title}>ParkShare</div>
+                    <Parent changePage={this.changePage} />
+                <button onClick={this.changePage}>Go to map</button>
+              </div>
+            );
         } else if (page  === 2)  {
             return (
               <div>
