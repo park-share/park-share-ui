@@ -1,5 +1,5 @@
 import React from 'react';
-// import mapConfig from './mapconfig.js';
+import mapConfig from './mapconfig.js';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import Filters from './Filters.jsx';
 import MarkerInfo from './MarkerInfo.jsx';
@@ -128,6 +128,8 @@ class MainMapContainer extends React.Component {
 
 	componentDidMount() {
 		//need to get reservations and change available time slots to account for taken times
+		// axios
+		// 	.get('/')
 		let { spots } = this.state;
 		this.setState({
 			filteredSpots: spots
@@ -502,5 +504,5 @@ class MainMapContainer extends React.Component {
 }
 
 export default GoogleApiWrapper({
-	// apiKey: mapConfig.API_KEY
+	apiKey: mapConfig.API_KEY
 })(MainMapContainer);
