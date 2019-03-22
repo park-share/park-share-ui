@@ -7,8 +7,8 @@ const MarkerInfo = (props) => {
         <div>
             <h2>{selectedPlace.name}</h2>
             <div>{selectedPlace.title}</div>
-            {/* <div>Weekday Rate: {selectedPlace.spot.weekday_rate}</div>
-            <div>Weekend Rate: {selectedPlace.spot.weekend_rate}</div> */}
+            {/* <div>Weekday Rate: ${selectedPlace.spot.weekday_rate}/day</div>
+            <div>Weekend Rate: ${selectedPlace.spot.weekend_rate}/day</div> */}
             <button>Reserve Space</button>
         </div>
     )

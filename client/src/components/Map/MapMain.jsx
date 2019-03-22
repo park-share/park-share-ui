@@ -385,7 +385,7 @@ class MainMapContainer extends React.Component {
 	render() {
 		const mapStyle = {
 			width: '60%',
-			height: '60%',
+			height: '65%',
 			position: 'relative',
 			padding: '10px'
 		}
