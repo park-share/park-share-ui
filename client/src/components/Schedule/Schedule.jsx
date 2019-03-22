@@ -19,7 +19,7 @@ class Schedule extends React.Component {
           Start: 10:00 AM <br/>
           End: 7:00 PM <br/>
           <div id={styles.current}>Scheduled</div><br/>
-          <div id={styles.current}>Past</div>
+          <div id={styles.current}></div>
         </div>
         
       </div>
