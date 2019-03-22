@@ -32,9 +32,9 @@ class Parent extends React.Component {
   var self = this;
   return (
     <div className={styles.container}>
-      <div >
-        <p id="signupButton" onClick={self.switch.bind(null, "signup")} className={self.state.signup ? "yellow" : "blue"}>Sign In</p>
-        <p id="loginButton" onClick={self.switch.bind(null, "login")} className={self.state.login ? "yellow" : "blue"}> Login</p>
+      <div className={styles.block}>
+        <p id={styles.signupButton} onClick={self.switch.bind(null, "signup")} className={self.state.signup ? "yellow" : "blue"}>Sign In</p>
+        <p id={styles.loginButton} onClick={self.switch.bind(null, "login")} className={self.state.login ? "yellow" : "blue"}> Login</p>
       </div>
 
       {self.state.signup ? <SignUp changePage={this.props.changePage}/> : null}
