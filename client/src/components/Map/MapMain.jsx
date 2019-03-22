@@ -1,11 +1,13 @@
 import React from 'react';
-import mapConfig from './mapconfig.js';
+// import mapConfig from './mapconfig.js';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import Filters from './Filters.jsx';
 import MarkerInfo from './MarkerInfo.jsx';
 import Listings from './MapListings.jsx';
 import styles from './styles/MapContainer.css'
 import axios from 'axios';
+import {Elements, StripeProvider} from 'react-stripe-elements';
+import CheckoutForm from '../Checkout/CheckoutForm.jsx';
 
 class MainMapContainer extends React.Component {
 	constructor(props) {
@@ -138,19 +140,20 @@ class MainMapContainer extends React.Component {
 	handleReserve(e, spot) {
 		e.preventDefault();
 		this.setState({
-			reserveSpot: spot
+			reserveSpot: spot,
+			checkout: true
 		})
 		//date range
 		// console.log('spot clicked', spot)
 	}
 
-	async handleCheckout(ev) {
+	handleCheckout(ev) {
 		let {startDate, startTime, endDate, endTime, reserveSpot} = this.state;
 		startTime = 'T' + startTime + ':00';
 		endTime = 'T' + endTime + ':00';
 		let start = new Date(startDate + startTime);
 		let end = new Date(endDate + endTime);
-    let {token} = await this.props.stripe.createToken({name: "Name"});
+    let {token} = this.props.stripe.createToken({name: "Name"});
 
     axios
       .post('/charge', {
@@ -429,7 +432,7 @@ class MainMapContainer extends React.Component {
 		}
 		const { filteredSpots, bounds, filteredZips, activeMarker, selectedPlace, showingInfo, startDate, dateRange, errorMessage, filtered } = this.state;
 
-		const renderCheckout;
+		let renderCheckout;
 		
 		if (this.state.checkout) {
 			renderCheckout = (
@@ -498,5 +501,5 @@ class MainMapContainer extends React.Component {
 }
 
 export default GoogleApiWrapper({
-	apiKey: mapConfig.API_KEY
+	// apiKey: mapConfig.API_KEY
 })(MainMapContainer);
