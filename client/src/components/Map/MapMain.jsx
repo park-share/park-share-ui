@@ -109,7 +109,6 @@ class MainMapContainer extends React.Component {
 		this.onMapClick = this.onMapClick.bind(this);
 		this.handleZipFilter = this.handleZipFilter.bind(this);
 		this.handleDateFilter = this.handleDateFilter.bind(this);
-		// this.filterDaysOfWeek =  this.filterDaysOfWeek.bind(this);
 		this.handleZipFilterSubmit = this.handleZipFilterSubmit.bind(this);
 		this.handleDateFilterSubmit = this.handleDateFilterSubmit.bind(this);
 		this.filterByZip = this.filterByZip.bind(this);
@@ -207,30 +206,6 @@ class MainMapContainer extends React.Component {
 	// 	if 
 	// }
 
-	filterByZip(zips) {
-		let { spots, startDate, startTime, endDate, endTime } = this.state;
-		let newFilteredZips = [];
-		for (let zip of zips) {
-			let found = false;
-			for (let spot of spots) {
-				if (spot.parking_address.includes(zip)) {
-					newFilteredZips.push(spot);
-					found = true;
-				}	
-			}
-			if (!found) {
-				let newFilters  = this.state.allFilteredZips
-				this.setState({errorMessage: `No spots available in ${zip}`})
-			}
-		}
-		this.setState({ filteredSpots: newFilteredZips }, () => {
-			if (startDate) {
-				this.filterByDateRange(startDate, startTime, endDate, endTime)
-			} else {
-				this.adjustBounds(this.state.filteredSpots)
-			}
-		});
-	}
 
 	adjustBounds(spots) {
 		let bounds = new google.maps.LatLngBounds();
@@ -249,6 +224,7 @@ class MainMapContainer extends React.Component {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(this.showPosition);
 		} else {
+			this.setState({ errorMessage: 'Geolocation not supported by this browser' })
 			console.log('Geolocation not supported by this browser')
 		}
 	}
@@ -278,9 +254,36 @@ class MainMapContainer extends React.Component {
 		});
 	}
 
+	filterByZip(zips) {
+		let { spots, startDate, startTime, endDate, endTime } = this.state;
+		let newFilteredZips = [];
+		for (let zip of zips) {
+			let found = false;
+			for (let spot of spots) {
+				if (spot.parking_address.includes(zip)) {
+					newFilteredZips.push(spot);
+					found = true;
+				}
+			}
+			if (!found) {
+				zips.pop();
+				this.setState({ errorMessage: `No spots available in ${zip}` })
+			}
+		}
+		if (zips.length > 0) {
+			this.setState({ filteredSpots: newFilteredZips }, () => {
+				if (startDate) {
+					this.filterByDateRange(startDate, startTime, endDate, endTime)
+				} else {
+					this.adjustBounds(this.state.filteredSpots)
+				}
+			});
+		}
+	}
+
 	handleZipFilterSubmit(e) {
 		e.preventDefault();
-		let { allFilters, zip, filteredZips } = this.state;
+		let { zip, filteredZips } = this.state;
 		if (zip && !filteredZips.includes(zip)) {
 			//add greater filters  in other file  instead of here
 			let allFilteredZips = filteredZips.concat(zip);
@@ -330,11 +333,17 @@ class MainMapContainer extends React.Component {
 			}
 		}
 		if (newFilteredSpots.length > 0) {
-			this.setState({filteredSpots: newFilteredSpots}, () => {
+			this.setState({ filteredSpots: newFilteredSpots }, () => {
 				this.adjustBounds(this.state.filteredSpots)
 			})
 		} else {
-			this.setState({errorMessage: 'No items matched your search', filteredSpots: this.state.spots});
+			this.setState({
+				errorMessage: 'No items matched your search',
+				filteredSpots: this.state.spots,
+				filteredZips: [],
+				// filtered: false,
+				dateRange: null
+			}, () => this.adjustBounds(this.state.filteredSpots));
 		}
 	}
 
@@ -343,7 +352,10 @@ class MainMapContainer extends React.Component {
 		let { filteredZips } = this.state;
 
 		if (e.target.id.length > 5) {
-			this.setState({ dateRange: null, startDate: null, startTime: null, endDate: null, endTime: null  })
+			this.setState({ dateRange: null, startDate: null, startTime: null, endDate: null, endTime: null, errorMessage: null }, () => this.filterByZip(this.state.filteredZips))
+			if (filteredZips.length < 1) {
+				this.setState({ filtered: false, filteredSpots: this.state.spots })
+			}
 		} else {
 			let currZip = e.target.id;
 			let newZips = [];
@@ -353,16 +365,18 @@ class MainMapContainer extends React.Component {
 				}
 			}
 			if (newZips.length > 0) {
-				this.setState({ filteredZips: newZips })
+				this.setState({ filteredZips: newZips, errorMessage: null })
 				this.filterByZip(newZips);
 			} else {
 				if (!this.state.startDate) {
-					this.setState({filtered:  false})
+					this.setState({ filtered: false })
 				}
 				this.setState({
 					filteredZips: [],
 					// allFilters: [],
 					filteredSpots: this.state.spots,
+					errorMessage: null,
+					filtered: false
 				}, () => this.adjustBounds(this.state.filteredSpots))
 			}
 		}
