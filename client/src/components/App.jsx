@@ -37,7 +37,7 @@ class App extends React.Component {
         let mapStyle = null;
         let menuStyle = null;
         if (showMenu) {
-            menu = `this is Bryan's menu`; //put component here
+            menu = `this is Bryan's menu`; //put Bryan's component here
             containerStyle = {
                 display: 'grid',
                 gridTemplateColumns: '1fr 3fr',
@@ -61,11 +61,13 @@ class App extends React.Component {
             );
         } else if (page  === 2)  {
             return (
-              <div style={containerStyle}>
-                  <div onClick={this.toggleMenu}>menu</div>
-                  <div className={styles.title}>ParkShare</div>
-                  <div styles={showMenu ? menuStyle : ''}>{menu}</div>
-                  <div styles={showMenu ? mapStyle : ''}><Map /></div>
+            <div>
+                <div className={styles.menuImgContainer} onClick={this.toggleMenu}><img className={styles.menuImg} src='https://www.freeiconspng.com/uploads/menu-icon-8.png'></img></div>
+                <div className={styles.title}>ParkShare</div>
+                <div style={containerStyle}>
+                    <div styles={showMenu ? menuStyle : ''}>{menu}</div>
+                    <div styles={showMenu ? mapStyle : ''}><Map /></div>
+                </div>
               </div>
             )
         }

@@ -18,16 +18,11 @@
   animation: imageAnimation 36s linear infinite 0s; 
 }
 
-.mapPageContainer {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  position: relative;
+.menuImg {
+  height: 30px;
+  width: 30px;
 }
 
-.mapContainer {
-  /* grid-column: 2 / 3; */
-}
-
-.menuContainer {
-  /* grid-column: 1 / 2; */
+.menuImgContainer {
+  position: absolute;
 }
