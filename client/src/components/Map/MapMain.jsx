@@ -22,7 +22,7 @@ class MainMapContainer extends React.Component {
 					weekday_rate: 20,
 					weekend_rate: 40,
 					notAvail: [{ "start": "Thu Mar 21 2019 04:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Thu Mar 21 2019 07:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Fri Mar 22 2019 15:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sun Mar 24 2019 05:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Mon Mar 25 2019 02:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Tue Mar 26 2019 04:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Tue Mar 26 2019 16:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Thu Mar 28 2019 09:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Fri Mar 29 2019 17:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sun Mar 31 2019 00:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Mon Apr 01 2019 17:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Mon Apr 01 2019 17:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Mon Apr 01 2019 21:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Thu Apr 04 2019 23:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Fri Apr 05 2019 18:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sat Apr 06 2019 08:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Sat Apr 06 2019 12:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Tue Apr 09 2019 14:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Thu Apr 11 2019 00:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Thu Apr 11 2019 21:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Sat Apr 13 2019 21:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Tue Apr 16 2019 01:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Tue Apr 16 2019 08:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Tue Apr 16 2019 17:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Fri Apr 19 2019 14:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sat Apr 20 2019 12:00:00 GMT-0700 (Pacific Daylight Time)" }],
-					name: `Taylor's house`
+					// name: `Taylor's house`
 				},
 				{
 					id: 2,
@@ -34,7 +34,7 @@ class MainMapContainer extends React.Component {
 					weekday_rate: 20,
 					weekend_rate: 40,
 					notAvail: [{ "start": "Fri Mar 22 2019 13:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sat Mar 23 2019 08:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Sat Mar 23 2019 13:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Wed Mar 27 2019 08:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Thu Mar 28 2019 08:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Fri Mar 29 2019 02:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Fri Mar 29 2019 04:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Fri Mar 29 2019 16:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Mon Apr 01 2019 08:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Thu Apr 04 2019 21:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Sat Apr 06 2019 00:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sun Apr 07 2019 02:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Sun Apr 07 2019 20:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Tue Apr 09 2019 02:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Wed Apr 10 2019 17:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Thu Apr 11 2019 20:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Sat Apr 13 2019 02:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sun Apr 14 2019 13:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Wed Apr 17 2019 00:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Thu Apr 18 2019 23:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Fri Apr 19 2019 17:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Fri Apr 19 2019 18:00:00 GMT-0700 (Pacific Daylight Time)" }],
-					name: 'Another house'
+					// name: 'Another house'
 				},
 				{
 					id: 3,
@@ -46,7 +46,7 @@ class MainMapContainer extends React.Component {
 					weekday_rate: 20,
 					weekend_rate: 40,
 					notAvail: [{ "start": "Thu Mar 21 2019 05:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Thu Mar 21 2019 06:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Mon Mar 25 2019 21:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Thu Mar 28 2019 21:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Fri Mar 29 2019 15:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sat Mar 30 2019 06:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Tue Apr 02 2019 10:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Tue Apr 02 2019 20:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Wed Apr 03 2019 09:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Thu Apr 04 2019 01:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Sun Apr 07 2019 07:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sun Apr 07 2019 17:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Mon Apr 08 2019 11:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Mon Apr 08 2019 18:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Thu Apr 11 2019 14:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Thu Apr 11 2019 22:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Fri Apr 12 2019 20:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Tue Apr 16 2019 08:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Tue Apr 16 2019 21:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Thu Apr 18 2019 04:00:00 GMT-0700 (Pacific Daylight Time)" }],
-					name: `Taylor's apartment`
+					// name: `Taylor's apartment`
 				},
 				{
 					id: 4,
@@ -58,7 +58,7 @@ class MainMapContainer extends React.Component {
 					weekday_rate: 20,
 					weekend_rate: 40,
 					notAvail: [{ "start": "Tue Mar 26 2019 12:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Tue Mar 26 2019 15:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Wed Mar 27 2019 00:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Thu Mar 28 2019 20:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Fri Mar 29 2019 20:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sun Mar 31 2019 08:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Sun Mar 31 2019 13:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sun Mar 31 2019 17:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Tue Apr 02 2019 14:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Thu Apr 04 2019 10:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Fri Apr 05 2019 10:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sun Apr 07 2019 03:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Mon Apr 08 2019 06:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Tue Apr 09 2019 17:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Tue Apr 09 2019 20:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Wed Apr 10 2019 01:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Wed Apr 10 2019 07:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Wed Apr 10 2019 15:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Sun Apr 14 2019 13:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Tue Apr 16 2019 12:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Fri Apr 19 2019 09:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Fri Apr 19 2019 13:00:00 GMT-0700 (Pacific Daylight Time)" }],
-					name: 'Hack Reactor @ Galvanize'
+					// name: 'Hack Reactor @ Galvanize'
 				},
 				{
 					id: 5,
@@ -70,7 +70,7 @@ class MainMapContainer extends React.Component {
 					weekday_rate: 20,
 					weekend_rate: 40,
 					notAvail: [{ "start": "Fri Mar 22 2019 06:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sat Mar 23 2019 07:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Sat Mar 23 2019 16:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sat Mar 23 2019 18:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Mon Mar 25 2019 01:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Mon Mar 25 2019 03:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Mon Mar 25 2019 20:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Tue Mar 26 2019 17:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Fri Mar 29 2019 01:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sat Mar 30 2019 00:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Sat Mar 30 2019 18:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Mon Apr 01 2019 03:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Tue Apr 02 2019 03:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Fri Apr 05 2019 15:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Sat Apr 06 2019 13:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sun Apr 07 2019 11:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Mon Apr 08 2019 13:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sat Apr 13 2019 17:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Sun Apr 14 2019 01:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sun Apr 14 2019 10:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Mon Apr 15 2019 14:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Mon Apr 15 2019 20:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Thu Apr 18 2019 15:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Fri Apr 19 2019 00:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Fri Apr 19 2019 03:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Fri Apr 19 2019 23:00:00 GMT-0700 (Pacific Daylight Time)" }],
-					name: 'WeWork Fine Arts'
+					// name: 'WeWork Fine Arts'
 				},
 				{
 					id: 6,
@@ -82,7 +82,7 @@ class MainMapContainer extends React.Component {
 					weekday_rate: 20,
 					weekend_rate: 40,
 					notAvail: [{ "start": "Fri Mar 22 2019 06:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Mon Mar 25 2019 15:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Wed Mar 27 2019 07:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Wed Mar 27 2019 12:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Wed Mar 27 2019 20:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sat Mar 30 2019 06:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Sat Mar 30 2019 10:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Mon Apr 01 2019 04:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Tue Apr 02 2019 01:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sun Apr 07 2019 20:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Tue Apr 09 2019 05:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Tue Apr 09 2019 07:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Tue Apr 09 2019 20:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Wed Apr 10 2019 11:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Thu Apr 11 2019 11:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Fri Apr 12 2019 07:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Sat Apr 13 2019 10:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sun Apr 14 2019 05:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Sun Apr 14 2019 16:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Mon Apr 15 2019 06:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Mon Apr 15 2019 17:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Mon Apr 15 2019 17:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Wed Apr 17 2019 14:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Fri Apr 19 2019 05:00:00 GMT-0700 (Pacific Daylight Time)" }, { "start": "Sat Apr 20 2019 12:00:00 GMT-0700 (Pacific Daylight Time)", "end": "Sat Apr 20 2019 22:00:00 GMT-0700 (Pacific Daylight Time)" }],
-					name: 'In n Out'
+					// name: 'In n Out'
 				}
 			],
 			reservations: null,
@@ -384,8 +384,8 @@ class MainMapContainer extends React.Component {
 
 	render() {
 		const mapStyle = {
-			width: '65%',
-			height: '80%',
+			width: '60%',
+			height: '60%',
 			position: 'relative',
 			padding: '10px'
 		}
@@ -410,10 +410,12 @@ class MainMapContainer extends React.Component {
 							onClick={this.onMapClick}>
 
 							{filteredSpots.map((spot, i) => {
+								let address = spot.parking_address.split(',')[0];
 								return <Marker
 									key={i}
-									name={spot.name}
+									name={address}
 									title={spot.parking_address}
+									spot={spot}
 									position={{ lat: spot.latitudes, lng: spot.longitudes }}
 									onClick={this.onMarkerClick}
 									icon={{

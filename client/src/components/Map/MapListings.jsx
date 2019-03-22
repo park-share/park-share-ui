@@ -4,9 +4,9 @@ import styles from './styles/MapListings.css';
 
 const Listings = (props) => {
     return (
-        <div className={styles.listingsContainer}>
+        <div >
             <h3>Spots:</h3>
-            <div>{props.filteredSpots.map((spot, i) => {
+            <div className={styles.listingsContainer}>{props.filteredSpots.map((spot, i) => {
                 return <MapListing spot={spot} key={i} />
             })}</div>
         </div>
