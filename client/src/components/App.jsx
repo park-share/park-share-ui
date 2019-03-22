@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './AppStyles.css';
 import Parent from "./SignUp/Parent.jsx";
 import Map from './Map/MapMain.jsx';
+import Schedule from './Schedule/Schedule.jsx'
 
 class App extends React.Component {
     constructor(props) {
@@ -37,7 +38,8 @@ class App extends React.Component {
         let mapStyle = null;
         let menuStyle = null;
         if (showMenu) {
-            menu = `this is Bryan's menu`; //put Bryan's component here
+            // menu = `this is Bryan's menu`; //put Bryan's component here
+            menu = <Schedule />
             containerStyle = {
                 display: 'grid',
                 gridTemplateColumns: '1fr 3fr',
