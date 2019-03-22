@@ -35,3 +35,5 @@ bundle.js
 mapconfig.js
 
 client/.DS_Store
+
+*.DS_Store
