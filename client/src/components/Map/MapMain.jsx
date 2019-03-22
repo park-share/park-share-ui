@@ -117,6 +117,7 @@ class MainMapContainer extends React.Component {
 		this.findUserLocation = this.findUserLocation.bind(this);
 		this.showPosition = this.showPosition.bind(this);
 		this.filterByDateRange = this.filterByDateRange.bind(this);
+		this.handleReserve = this.handleReserve.bind(this);
 	}
 
 	componentDidMount() {
@@ -127,6 +128,19 @@ class MainMapContainer extends React.Component {
 		}, () => {
 			this.adjustBounds(this.state.filteredSpots);
 		})
+	}
+
+	//for Michael - not working for map yetA
+	handleReserve(e, spot) {
+		e.preventDefault();
+		//date range
+		let {startDate, startTime, endDate, endTime} = this.state;
+		startTime = 'T' + startTime + ':00';
+		endTime = 'T' + endTime + ':00';
+		let start = new Date(startDate + startTime);
+		let end = new Date(endDate + endTime);
+
+		console.log('spot clicked', spot)
 	}
 
 	onMarkerClick(props, marker) {
@@ -427,7 +441,7 @@ class MainMapContainer extends React.Component {
 							})}
 
 							<InfoWindow marker={activeMarker} visible={showingInfo} >
-								<MarkerInfo selectedPlace={selectedPlace} />
+								<MarkerInfo selectedPlace={selectedPlace} handleReserve={this.handleReserve} />
 							</InfoWindow>
 
 						</ Map>
@@ -435,7 +449,7 @@ class MainMapContainer extends React.Component {
 				</div>
 
 				<div className={styles.listContainer}>
-					<Listings filteredSpots={filteredSpots} />
+					<Listings filteredSpots={filteredSpots} handleReserve={this.handleReserve} />
 				</div>
 
 			</div>
