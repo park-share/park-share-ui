@@ -164,9 +164,10 @@ class MainMapContainer extends React.Component {
 			})
       .then(() => {
         this.setState({
+					checkout: false,
 					checkoutComplete: true
-				})
-      })
+				});
+      });
 
   }
 
