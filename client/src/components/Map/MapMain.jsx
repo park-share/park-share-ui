@@ -6,7 +6,7 @@ import MarkerInfo from './MarkerInfo.jsx';
 import Listings from './MapListings.jsx';
 import styles from './styles/MapContainer.css'
 import axios from 'axios';
-import {Elements, StripeProvider} from 'react-stripe-elements';
+import { Elements, StripeProvider } from 'react-stripe-elements';
 import CheckoutForm from '../Checkout/CheckoutForm.jsx';
 
 class MainMapContainer extends React.Component {
@@ -128,14 +128,19 @@ class MainMapContainer extends React.Component {
 
 	componentDidMount() {
 		//need to get reservations and change available time slots to account for taken times
-		// axios
-		// 	.get('/')
-		let { spots } = this.state;
-		this.setState({
-			filteredSpots: spots
-		}, () => {
-			this.adjustBounds(this.state.filteredSpots);
-		})
+		axios
+			.get('/api/map/available')
+			.then((data) => this.setState({ spots: data.data }, () => {
+				let { spots } = this.state;
+				this.setState({
+					filteredSpots: spots
+				}, () => {
+					this.adjustBounds(this.state.filteredSpots);
+				})
+			}))
+			.catch(err => console.log(err))
+
+
 	}
 
 	//for Michael - not working for map yetA
@@ -150,15 +155,15 @@ class MainMapContainer extends React.Component {
 	}
 
 	handleCheckout(ev) {
-		let {startDate, startTime, endDate, endTime, reserveSpot} = this.state;
+		let { startDate, startTime, endDate, endTime, reserveSpot } = this.state;
 		startTime = 'T' + startTime + ':00';
 		endTime = 'T' + endTime + ':00';
 		let start = new Date(startDate + startTime);
 		let end = new Date(endDate + endTime);
-    let {token} = this.props.stripe.createToken({name: "Name"});
+		let { token } = this.props.stripe.createToken({ name: "Name" });
 
-    axios
-      .post('/charge', {
+		axios
+			.post('/charge', {
 				token: token.id,
 				reserveStart: start,
 				reserveEnd: end,
@@ -171,7 +176,7 @@ class MainMapContainer extends React.Component {
 				});
       });
 
-  }
+	}
 
 	onMarkerClick(props, marker) {
 		this.setState({
@@ -255,7 +260,7 @@ class MainMapContainer extends React.Component {
 		let bounds = new google.maps.LatLngBounds();
 		let allSpots = [];
 		for (let spot of spots) {
-			allSpots.push({ lat: spot.latitudes, lng: spot.longitudes })
+			allSpots.push({ lat: Number(spot.latitudes), lng: Number(spot.longitudes) })
 		}
 		for (let point of allSpots) {
 			bounds.extend(point);
@@ -364,7 +369,7 @@ class MainMapContainer extends React.Component {
 		let endRange = new Date(endDate + endTime);
 		for (let spot of spots) {
 			let notInRange = true;
-			for (let time of spot.notAvail) {
+			for (let time of spot.notavail) {
 				let start = new Date(time.start);
 				let end = new Date(time.end);
 				if ((start > startRange && start < endRange) || (end > startRange && end < endRange)) {
@@ -436,19 +441,19 @@ class MainMapContainer extends React.Component {
 		const { filteredSpots, bounds, filteredZips, activeMarker, selectedPlace, showingInfo, startDate, dateRange, errorMessage, filtered } = this.state;
 
 		let renderCheckout;
-		
+
 		if (this.state.checkout) {
 			renderCheckout = (
 				<StripeProvider apiKey="pk_test_pQhnuyRSReWhY1em9BsAasjo00RX9j436Y">
 					<div className="example">
-					<h1>React Stripe Elements Example</h1>
+						<h1>React Stripe Elements Example</h1>
 						<Elements>
-							<CheckoutForm submit={this.handleCheckout}/>
+							<CheckoutForm submit={this.handleCheckout} />
 						</Elements>
 					</div>
 				</StripeProvider>
 			)
-		} 
+		}
 
 		if (this.state.checkoutComplete) return <h1>Purchase Complete</h1>
 		return (
