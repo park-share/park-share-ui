@@ -174,7 +174,14 @@ class MainMapContainer extends React.Component {
 					checkout: false,
 					checkoutComplete: true
 				});
-      });
+			})
+			.catch((err) => {
+				this.setState({
+					checkout: false
+				});
+				window.alert("Transaction failed. Please see the console log for details.");
+				console.log(err);
+			});
 
 	}
 
@@ -444,6 +451,7 @@ class MainMapContainer extends React.Component {
 
 		if (this.state.checkout) {
 			renderCheckout = (
+<<<<<<< HEAD
 				<StripeProvider apiKey="pk_test_pQhnuyRSReWhY1em9BsAasjo00RX9j436Y">
 					<div className="example">
 						<h1>React Stripe Elements Example</h1>
@@ -452,6 +460,18 @@ class MainMapContainer extends React.Component {
 						</Elements>
 					</div>
 				</StripeProvider>
+=======
+				<div className={styles.checkoutContainer}>
+					<StripeProvider apiKey="pk_test_pQhnuyRSReWhY1em9BsAasjo00RX9j436Y">
+						<div className="example">
+						<h1>React Stripe Elements Example</h1>
+							<Elements>
+								<CheckoutForm submit={this.handleCheckout}/>
+							</Elements>
+						</div>
+					</StripeProvider>
+				</div>
+>>>>>>> Handle error when transaction fails
 			)
 		}
 
