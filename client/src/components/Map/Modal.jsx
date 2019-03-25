@@ -5,7 +5,7 @@ import styles from './styles/Modal.css';
 
 const Modal = ({ children, customClass, show, closeCallback }) => {
   return (
-    <div classNAme={`modal ${customClass}`} style={{ display: show ? 'block': 'none'}}>
+    <div className={`modal ${customClass}`} style={{ display: show ? 'block': 'none'}}>
       <div className="overlay" onClick={closeCallback}></div>
       <div className="modal_content">
         {children}
