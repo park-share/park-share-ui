@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./SignUp.css";
 import axios from 'axios';
-// var createReactClass = require("create-react-class");
 
 
 class SignUp extends React.Component {
@@ -22,7 +21,6 @@ class SignUp extends React.Component {
     this.setState({
       [e.target.id]: e.target.value
     });
-    // console.log(e.target.value)
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -34,7 +32,6 @@ class SignUp extends React.Component {
       birthday,
       phone
     } = this.state;
-    // console.log()
     axios
       .post('/api/signup', { firstname, lastname, email, user_password, birthday, phone })
       .then(() => {
@@ -70,6 +67,7 @@ class SignUp extends React.Component {
           <br /><br />
           <input 
             id="user_password" 
+            type="password"
             placeholder="password"
             onChange={this.handleInput} 
           />
