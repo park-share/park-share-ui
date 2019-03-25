@@ -126,6 +126,8 @@ class MainMapContainer extends React.Component {
 		this.filterByDateRange = this.filterByDateRange.bind(this);
 		this.handleReserve = this.handleReserve.bind(this);
 		this.handleCheckout = this.handleCheckout.bind(this);
+		this.exitCheckoutComplete = this.exitCheckoutComplete.bind(this);
+		this.exitCheckoutFail = this.exitCheckoutFail.bind(this);
 	}
 
 	componentDidMount() {
@@ -148,10 +150,20 @@ class MainMapContainer extends React.Component {
 	//for Michael - not working for map yetA
 	handleReserve(e, spot) {
 		e.preventDefault();
-		this.setState({
-			reserveSpot: spot,
-			checkout: true
-		})
+
+		axios
+			.post('/reservations/post', {
+				spot
+			})
+			.then(() => {
+				this.setState({
+					checkout: true
+				})
+			})
+			.catch((err) => {
+				window.alert("Error")
+			})
+
 		//date range
 		// console.log('spot clicked', spot)
 	}
@@ -185,7 +197,18 @@ class MainMapContainer extends React.Component {
 				window.alert("Transaction failed. Please see the console log for details.");
 				console.log(err);
 			});
+	}
 
+	exitCheckoutFail() {
+		this.setState({
+			checkoutFailed: false
+		})
+	}
+
+	exitCheckoutComplete() {
+		this.setState({
+			checkoutComplete: false
+		})
 	}
 
 	onMarkerClick(props, marker) {
@@ -450,44 +473,30 @@ class MainMapContainer extends React.Component {
 		}
 		const { filteredSpots, bounds, filteredZips, activeMarker, selectedPlace, showingInfo, startDate, dateRange, errorMessage, filtered } = this.state;
 
-		let renderCheckout;
-<<<<<<< HEAD
+		// let renderCheckout;
 
-		if (this.state.checkout) {
-			renderCheckout = (
-<<<<<<< HEAD
-				<StripeProvider apiKey="pk_test_pQhnuyRSReWhY1em9BsAasjo00RX9j436Y">
-					<div className="example">
-						<h1>React Stripe Elements Example</h1>
-						<Elements>
-							<CheckoutForm submit={this.handleCheckout} />
-						</Elements>
-					</div>
-				</StripeProvider>
-=======
-				<div className={styles.checkoutContainer}>
-					<StripeProvider apiKey="pk_test_pQhnuyRSReWhY1em9BsAasjo00RX9j436Y">
-						<div className="example">
-						<h1>React Stripe Elements Example</h1>
-							<Elements>
-								<CheckoutForm submit={this.handleCheckout}/>
-							</Elements>
-						</div>
-					</StripeProvider>
-				</div>
->>>>>>> Handle error when transaction fails
-			)
-		}
-=======
+		// if (this.state.checkout) {
+		// 	renderCheckout = (
+		// 		<div className={styles.checkoutContainer}>
+		// 			<StripeProvider apiKey="pk_test_pQhnuyRSReWhY1em9BsAasjo00RX9j436Y">
+		// 				<div className="example">
+		// 				<h1>React Stripe Elements Example</h1>
+		// 					<Elements>
+		// 						<CheckoutForm submit={this.handleCheckout}/>
+		// 					</Elements>
+		// 				</div>
+		// 			</StripeProvider>
+		// 		</div>
+		// 	)
+		// }
 		
 		// if (this.state.checkout) {
 		// 	renderCheckout = (
 				
 		// 	)
 		// } 
->>>>>>> Add modal for checkout
 
-		if (this.state.checkoutComplete) return <h1>Purchase Complete</h1>
+		// if (this.state.checkoutComplete) return <h1>Purchase Complete</h1>
 		return (
 			<div className={styles.wrapper}>
 				<div className={styles.bigMapContainer}>
@@ -534,10 +543,9 @@ class MainMapContainer extends React.Component {
 				<div className={styles.listContainer}>
 					<Listings filteredSpots={filteredSpots} handleReserve={this.handleReserve} />
 				</div>
-				{renderCheckout}
 				<Modal
 					show={this.state.checkout}
-					closeCallback={this.toggleModal}
+					closeCallback={this.handleReserve}
 					customClass="custom_modal_class"
 				>
 					<React.Fragment>
@@ -551,6 +559,24 @@ class MainMapContainer extends React.Component {
 								</div>
 							</StripeProvider>
 						</div>
+					</React.Fragment>
+				</Modal>
+				<Modal
+					show={this.state.checkoutComplete}
+					closeCallback={this.exitCheckoutComplete}
+					customClass="custom_modal_class"
+				>
+					<React.Fragment>
+						<h1>Transaction Complete!</h1>
+					</React.Fragment>
+				</Modal>
+				<Modal
+					show={this.state.checkoutFailed}
+					closeCallback={this.exitCheckoutFail}
+					customClass="custom_modal_class"
+				>
+					<React.Fragment>
+						<h1>Transaction Failed. Please try again.</h1>
 					</React.Fragment>
 				</Modal>
 			</div>
