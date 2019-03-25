@@ -50,10 +50,16 @@ class LoginPage extends React.Component {
       <div className={styles.info}>
         <div className={styles.signup}>
           <form onSubmit={this.handleSubmit}>
-            <input id="email" onChange={this.handleInput} placeholder="email" />
+            <input
+              className={styles.formlogin}
+              id="email"
+              onChange={this.handleInput}
+              placeholder="email"
+            />
             <br />
             <br />
             <input
+              className={styles.formlogin}
               id="user_password"
               type="password"
               onChange={this.handleInput}
@@ -61,9 +67,9 @@ class LoginPage extends React.Component {
             />
             <br />
             <br />
-            <button
-              type="submit"
-            >
+            <br />
+            <br />
+            <button className={styles.formbutton} type="submit">
               Log in
             </button>
           </form>

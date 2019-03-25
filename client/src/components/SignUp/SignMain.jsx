@@ -47,47 +47,43 @@ class SignUp extends React.Component {
 
       <div className={styles.signup}>
         <form onSubmit={this.handleSubmit}>
-          <input 
+          <input className={styles.forminput}
             id="firstname" 
             placeholder="First Name" 
             onChange={this.handleInput} 
           />
-          <br /><br />
-          <input
+ 
+            <input className={styles.forminput}
             id="lastname"
             placeholder="Last Name"
             onChange={this.handleInput}
           />
-          <br /><br />
-          <input className={styles.email}
+            <input className={styles.forminput}
             id="email" 
             placeholder="email"
             onChange={this.handleInput} 
           />
-          <br /><br />
-          <input 
+            <input className={styles.forminput}
             id="user_password" 
             type="password"
             placeholder="password"
             onChange={this.handleInput} 
           />
-          <br /><br />
-          <input 
+            <input className={styles.forminput}
             id="birthday" 
             placeholder="month/date/year"
             onChange={this.handleInput} 
           />
-          <br /><br />
         
-          <input 
+            <input className={styles.forminput}
             id="phone" 
             placeholder='phone#'
             onChange={this.handleInput} 
           />       
           <br /><br />
-          <button
+          <button className={styles.formbutton}
             type="submit"
-          > SEND
+          > Sign Up
           </button>
 
         </form>
