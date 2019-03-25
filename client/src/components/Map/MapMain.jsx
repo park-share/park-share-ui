@@ -385,8 +385,12 @@ class MainMapContainer extends React.Component {
 	handleDateFilterSubmit(e) {
 		e.preventDefault();
 		let { startDate, startTime, endDate, endTime } = this.state;
+		let start = String(new Date(`${startDate} ${startTime}`));
+		let end = String(new  Date(`${endDate} ${endTime}`));
+		start = start.split(' ').slice(0, 5).join(' ');
+		end = end.split(' ').slice(0, 5).join(' ');
 		this.setState({
-			dateRange: `${startDate} ${startTime} to ${endDate} ${endTime}`,
+			dateRange: `${start} to ${end}`,
 			filtered: true
 		}, () => this.filterByDateRange(startDate, startTime, endDate, endTime))
 

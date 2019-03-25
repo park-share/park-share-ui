@@ -7,10 +7,10 @@ const MapListing = (props) => {
     return (
         <div className={styles.listing}>
             <div><strong>{address}</strong></div>
-            <div>{spot.parking_address}</div>
+            {/* <div>{spot.parking_address}</div> */}
             <div className={styles.prices}>Weekday Rate: ${spot.weekday_rate}/day</div>
             <div className={styles.prices}>Weekend Rate: ${spot.weekend_rate}/day</div>
-            <button onClick={(e) => handleReserve(e, spot)}>Reserve Space</button>
+            <button className={styles.button} onClick={(e) => handleReserve(e, spot)}>Reserve Space</button>
         </div>
     )
 }

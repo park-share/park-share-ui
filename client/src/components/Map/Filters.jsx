@@ -43,7 +43,7 @@ const Filters = (props) => {
 	return (
 		<div>
 			<form id='filterZipForm' className={styles.zipForm}>
-				Find spots near zipcode: <input id='zip' onChange={(e) => handleZipFilter(e)} type='number'></input><button onClick={(e) => handleZipFilterSubmit(e)}>Filter</button> OR <button onClick={(e) => findUserLocation(e)}>Find locations near me</button><br />
+				Find spots near zipcode: <input id='zip' onChange={(e) => handleZipFilter(e)} type='number'></input><button className={styles.button} onClick={(e) => handleZipFilterSubmit(e)}>Filter</button> OR <button className={styles.button} onClick={(e) => findUserLocation(e)}>Find locations near me</button><br />
 			</form>
 			<form id='filterDateForm' className={styles.dateForm}>
 				Start date: <input id='startDate' type='date' min={today} max={maxDate} onChange={(e) => handleDateFilter(e)} required></input>
@@ -54,7 +54,7 @@ const Filters = (props) => {
 
 				End time: <input id='endTime' type='time' step='1800' onChange={(e) => handleDateFilter(e)} required></input>
 
-				<button onClick={(e) => handleDateFilterSubmit(e)}>Filter</button>
+				<button className={styles.button}  onClick={(e) => handleDateFilterSubmit(e)}>Filter</button>
 			</form>
 			{currentFilters}
 			{error}
