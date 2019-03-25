@@ -8,6 +8,7 @@ import styles from './styles/MapContainer.css'
 import axios from 'axios';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 import CheckoutForm from '../Checkout/CheckoutForm.jsx';
+import Modal from './Modal.jsx';
 
 class MainMapContainer extends React.Component {
 	constructor(props) {
@@ -15,6 +16,7 @@ class MainMapContainer extends React.Component {
 		this.state = {
 			checkout: false,
 			checkoutComplete: false,
+			checkoutFailed: false,
 			reserveSpot: null,
 			spots: [
 				{
@@ -177,7 +179,8 @@ class MainMapContainer extends React.Component {
 			})
 			.catch((err) => {
 				this.setState({
-					checkout: false
+					checkout: false,
+					checkoutFailed: true,
 				});
 				window.alert("Transaction failed. Please see the console log for details.");
 				console.log(err);
@@ -448,6 +451,7 @@ class MainMapContainer extends React.Component {
 		const { filteredSpots, bounds, filteredZips, activeMarker, selectedPlace, showingInfo, startDate, dateRange, errorMessage, filtered } = this.state;
 
 		let renderCheckout;
+<<<<<<< HEAD
 
 		if (this.state.checkout) {
 			renderCheckout = (
@@ -474,6 +478,14 @@ class MainMapContainer extends React.Component {
 >>>>>>> Handle error when transaction fails
 			)
 		}
+=======
+		
+		// if (this.state.checkout) {
+		// 	renderCheckout = (
+				
+		// 	)
+		// } 
+>>>>>>> Add modal for checkout
 
 		if (this.state.checkoutComplete) return <h1>Purchase Complete</h1>
 		return (
@@ -523,6 +535,24 @@ class MainMapContainer extends React.Component {
 					<Listings filteredSpots={filteredSpots} handleReserve={this.handleReserve} />
 				</div>
 				{renderCheckout}
+				<Modal
+					show={this.state.checkout}
+					closeCallback={this.toggleModal}
+					customClass="custom_modal_class"
+				>
+					<React.Fragment>
+						<div className={styles.checkoutContainer}>
+							<StripeProvider apiKey="pk_test_pQhnuyRSReWhY1em9BsAasjo00RX9j436Y">
+								<div className="example">
+								<h1>React Stripe Elements Example</h1>
+									<Elements>
+										<CheckoutForm submit={this.handleCheckout}/>
+									</Elements>
+								</div>
+							</StripeProvider>
+						</div>
+					</React.Fragment>
+				</Modal>
 			</div>
 		)
 	}
