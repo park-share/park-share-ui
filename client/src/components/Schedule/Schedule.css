@@ -1,3 +1,15 @@
 #current {
-  font-size: 24px
+  font-size: 24px;
+  border: none;
+  background-color: white;
+  cursor:pointer;
+  outline:none;
+}
+#dropDownDivider {
+  display: block;
+  color: rgba(0, 0, 0, 0.063);
+  margin-bottom: 8px;
+  margin-top: 16px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
 }
