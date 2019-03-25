@@ -22,6 +22,7 @@ class SignUp extends React.Component {
     this.setState({
       [e.target.id]: e.target.value
     });
+    // console.log(e.target.value)
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -33,9 +34,11 @@ class SignUp extends React.Component {
       birthday,
       phone
     } = this.state;
+    // console.log()
     axios
       .post('/api/signup', { firstname, lastname, email, user_password, birthday, phone })
       .then(() => {
+        this.props.changePage();
       })
       .catch((err) => {
         console.log(err)
@@ -51,57 +54,44 @@ class SignUp extends React.Component {
             id="firstname" 
             placeholder="First Name" 
             onChange={this.handleInput} 
-            />
+          />
           <br /><br />
           <input
             id="lastname"
             placeholder="Last Name"
             onChange={this.handleInput}
           />
-          <br />
-          <br />
-          
-            <input className={styles.email}
+          <br /><br />
+          <input className={styles.email}
             id="email" 
             placeholder="email"
             onChange={this.handleInput} 
-            />
-        
-          <br />
-          <br />
+          />
+          <br /><br />
           <input 
-            id="user_passowrd" 
+            id="user_password" 
             placeholder="password"
             onChange={this.handleInput} 
-            />
-        
-          <br />
-          <br />
+          />
+          <br /><br />
           <input 
             id="birthday" 
             placeholder="month/date/year"
             onChange={this.handleInput} 
-            />
-        
-          <br />
-          <br />
+          />
+          <br /><br />
         
           <input 
             id="phone" 
             placeholder='phone#'
             onChange={this.handleInput} 
-            />
-        
-          <br />
-          <br />
+          />       
+          <br /><br />
           <button
             type="submit"
-            onClick={() => {
-              this.props.changePage();
-            }}
-            >
-            SEND
+          > SEND
           </button>
+
         </form>
       </div>
   </div>
