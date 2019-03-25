@@ -1,17 +1,22 @@
 import React from 'react';
-import styles from './SignUp.css'
+import styles from './SignUp.css';
+import axios from 'axios';
 // import { userService } from '../_services';
 
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      user_password: ''
- 
-    }
+      email: "",
+      user_password: "",
+      loginstate:'wrong email or password'
+    };
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.validateForm = this.validateForm.bind(this);
+  }
+  validateForm() {
+    return this.state.email.length > 0 && this.state.user_password.length > 0;
   }
   handleInput(e) {
     this.setState({
@@ -20,37 +25,49 @@ class LoginPage extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    const {
-      email,
-      user_password
-    } = this.state;
-    axios
-      .post('/api/login', { email, user_password })
-      .then(() => {
+    const { email, user_password } = this.state;
+    console.log(email,user_password)
+    if (this.validateForm()) {
+      console.log(this.validateForm());
+      axios
+        .post("/api/login", { email, user_password })
+        .then(() => {
+          this.props.changePage();
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } else {
+      this.setState({
+        loginstate:'successfully logged in'
       })
-      .catch((err) => {
-        console.log(err)
-      })
+    }
   }
   render() {
     return (
       <div className={styles.info}>
         <div className={styles.signup}>
           <form onSubmit={this.handleSubmit}>
-              <input id="email" onChange={this.handleInput} placeholder='email' />
-              <br />
-              <br />
-              <input id="user_passowrd" onChange={this.handleInput} placeholder='password' />
+            <input id="email" onChange={this.handleInput} placeholder="email" />
             <br />
             <br />
-            <button type="submit" onClick={() => { this.props.changePage() }}>Log in</button>
+            <input
+              id="user_password"
+              onChange={this.handleInput}
+              placeholder="password"
+            />
+            <br />
+            <br />
+            <button
+              type="submit"
+            >
+              Log in
+            </button>
           </form>
         </div>
-
       </div>
     );
   }
-
 }
 
 export default LoginPage;
