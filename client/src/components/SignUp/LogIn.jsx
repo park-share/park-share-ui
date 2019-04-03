@@ -1,6 +1,6 @@
-import React from 'react';
-import styles from './SignUp.css';
-import axios from 'axios';
+import React from "react";
+import styles from "./SignUp.css";
+import axios from "axios";
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -8,7 +8,7 @@ class LoginPage extends React.Component {
     this.state = {
       email: "",
       user_password: "",
-      loginstate:''
+      loginstate: ""
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,28 +25,48 @@ class LoginPage extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { email, user_password } = this.state;
-    console.log(email,user_password)
+    console.log(email, user_password);
     if (this.validateForm()) {
-      console.log(this.validateForm());
       axios
         .post("/api/login", { email, user_password })
-        .then(() => {
-          this.props.changePage();
-          this.setState({
-            loginstate:'successfully signed in'
-          })
+        .then(res => {
+          if (res.data === email) { //server send back the user email to the client
+            // console.log(res.data)
+            this.props.changePage();
+          } else if (res.data === "Username does not exist") {
+            this.setState({
+              loginstate: res.data
+            });
+          } else if (res.data === "Incorrect password") {
+            this.setState({
+              loginstate: res.data
+            });
+          }
+          console.log(res.data);
+          // if (res.data.status===422) {
+          //   console.log('hihihi')
+
+          // } else {
+
+          //   this.props.changePage();
+          // }
+          // this.setState({
+          //   loginstate:'successfully signed in'
+          // })
         })
         .catch(err => {
-          console.log(err);
+          console.log("thisis the err", err);
         });
     } else {
       this.setState({
-        loginstate: "wrong email or password"
+        loginstate: "not a great a password"
       });
     }
   }
   render() {
+    const { username, password, loginstate } = this.state;
     return (
+
       <div className={styles.info}>
         <div className={styles.signup}>
           <form onSubmit={this.handleSubmit}>
@@ -69,6 +89,17 @@ class LoginPage extends React.Component {
             <br />
             <br />
             <br />
+            <div className={styles.auth}>
+              {loginstate === "Name not available"
+                ? "Name already taken"
+                : ""}
+              {loginstate === "Incorrect password"
+                ? "Incorrect password"
+                : ""}
+              {loginstate === "Username does not exist"
+                ? "Username does not exist"
+                : ""}
+            </div>
             <button className={styles.formbutton} type="submit">
               Log in
             </button>
@@ -80,4 +111,3 @@ class LoginPage extends React.Component {
 }
 
 export default LoginPage;
-
