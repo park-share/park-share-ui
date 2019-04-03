@@ -153,7 +153,7 @@ class MainMapContainer extends React.Component {
 
 		axios
 			.post('/reservations/post', {
-				spot
+				spot: spot
 			})
 			.then(() => {
 				this.setState({
