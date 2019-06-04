@@ -1,12 +1,12 @@
 .wrapper {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 3fr 1fr;
     /* grid-template-rows: auto; */
     /* width: 100vw; */
-    height: 100vh;
-    grid-gap: 10px;
+    /* height: 100vh; */
+    /* grid-gap: 10px;
     margin-left: 20px;
-    margin-right: 20px;
+    margin-right: 20px; */
     font-family: Arial, Helvetica, sans-serif;
     position: relative;
 }
@@ -17,16 +17,22 @@
 
 .listContainer {
     grid-column: 2 / 3;
-    padding: 10px;
-    margin: 10px;
+    /* position: fixed; */
+    /* padding: 10px;
+    margin: 10px; */
 }
 
 .filterContainer {
-    padding: 10px;
-    margin:  5px;
+    /* padding: 10px;
+    margin:  5px; */
+    z-index: 100;
+    position: absolute;
+    top: 80%;
+    /* opacity: 50%; */
+    background-color: rgba(255,255,255,0.5);
 }
 
-.mapContainer {
+/* .mapContainer {
     width: 80%;
-}
+} */
 

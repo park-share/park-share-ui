@@ -1,9 +1,9 @@
 .listingsContainer {
-    padding: 5px;
-    width: 100%;
-    border: 1px solid black;
+    /* padding: 5px; */
+    width: 90%;
+    /* border: 1px solid black; */
     position: relative;
     /* height: 500px; */
-    height: 80vh;
-    overflow-y: scroll;
+    height: 70vh;
+    overflow-x: scroll;
 }
