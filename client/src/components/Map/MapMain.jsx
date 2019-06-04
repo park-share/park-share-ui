@@ -1,5 +1,5 @@
 import React from 'react';
-// import mapConfig from './mapconfig.js';
+import mapConfig from './mapconfig.js';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import Filters from './Filters.jsx';
 import MarkerInfo from './MarkerInfo.jsx';
@@ -144,7 +144,12 @@ class MainMapContainer extends React.Component {
 			}))
 			.catch(err => console.log(err))
 
-
+		// let { spots } = this.state;
+		// this.setState({
+		// 	filteredSpots: spots
+		// }, () => {
+		// 	this.adjustBounds(this.state.filteredSpots);
+		// })
 	}
 
 	//for Michael - not working for map yetA
@@ -162,6 +167,9 @@ class MainMapContainer extends React.Component {
 			})
 			.catch((err) => {
 				window.alert("Error")
+				this.setState({
+					checkout: true
+				})
 			})
 
 		//date range
@@ -183,8 +191,8 @@ class MainMapContainer extends React.Component {
 				reserveEnd: end,
 				space: reserveSpot
 			})
-      .then(() => {
-        this.setState({
+			.then(() => {
+				this.setState({
 					checkout: false,
 					checkoutComplete: true
 				});
@@ -236,58 +244,6 @@ class MainMapContainer extends React.Component {
 		// console.log('date', e.target.value)
 		this.setState({ [e.target.id]: e.target.value })
 	}
-
-	// filterDaysOfWeek() {
-	// 	let start = this.state.startDate;
-	// 	let end = this.state.endDate;
-	// 	let weekday = new Array(7);
-	// 	weekday[0] = "sunday";
-	// 	weekday[1] = "monday";
-	// 	weekday[2] = "tuesday";
-	// 	weekday[3] = "wednesday";
-	// 	weekday[4] = "thursday";
-	// 	weekday[5] = "friday";
-	// 	weekday[6] = "saturday";
-	// 	let startIndex = start.getDay();
-	// 	let endIndex =  end.getDay();
-
-	// 	let daysToFilter =  [];
-
-	// 	if (startIndex <= endIndex) {
-	// 		for (let i = startIndex; i <= endIndex; i++) {
-	// 			daysToFilter.push(weekday[i])
-	// 		}
-	// 	} else if (startIndex > endIndex) {
-	// 		for (let i = startIndex; i < 7; i++) {
-	// 			daysToFilter.push(weekday[i])
-	// 		}
-	// 		for (let j = 0; j <= endIndex;  j++) {
-	// 			daysToFilter.push(weekday[i])
-	// 		}
-	// 	} 
-
-	// 	let filteredDates = [];
-	// 	let {spots} =  this.state;
-	// 	for (let day of daysToFilter)  {
-	// 		for (let spot of spots) {
-	// 			if (spot[day] !== null) {
-	// 				filteredDates.push(spot);
-	// 			}
-	// 		}
-	// 	}
-	// 	this.setState({ filteredDates })
-	// }
-
-	// handleStartTimeFilter(e) {
-	// 	if (e.t)
-	// 	this.setState({startTime: e.target.value})
-	// }
-
-	// handleEndTimeFilter(e) {
-	// 	let time = e.target.value;
-	// 	if 
-	// }
-
 
 	adjustBounds(spots) {
 		let bounds = new google.maps.LatLngBounds();
@@ -386,7 +342,7 @@ class MainMapContainer extends React.Component {
 		e.preventDefault();
 		let { startDate, startTime, endDate, endTime } = this.state;
 		let start = String(new Date(`${startDate} ${startTime}`));
-		let end = String(new  Date(`${endDate} ${endTime}`));
+		let end = String(new Date(`${endDate} ${endTime}`));
 		start = start.split(' ').slice(0, 5).join(' ');
 		end = end.split(' ').slice(0, 5).join(' ');
 		this.setState({
@@ -470,10 +426,11 @@ class MainMapContainer extends React.Component {
 
 	render() {
 		const mapStyle = {
-			width: '60%',
-			height: '65%',
+			width: '72%',
+			height: '100%',
 			position: 'relative',
-			padding: '10px'
+			padding: '10px',
+			zIndex: 10
 		}
 		const { filteredSpots, bounds, filteredZips, activeMarker, selectedPlace, showingInfo, startDate, dateRange, errorMessage, filtered } = this.state;
 
@@ -493,10 +450,10 @@ class MainMapContainer extends React.Component {
 		// 		</div>
 		// 	)
 		// }
-		
+
 		// if (this.state.checkout) {
 		// 	renderCheckout = (
-				
+
 		// 	)
 		// } 
 
@@ -504,9 +461,8 @@ class MainMapContainer extends React.Component {
 		return (
 			<div className={styles.wrapper}>
 				<div className={styles.bigMapContainer}>
-					<div className={styles.filterContainer}>
-						<Filters handleZipFilter={this.handleZipFilter} filtered={filtered} handleZipFilterSubmit={this.handleZipFilterSubmit} removeFilter={this.removeFilter} filteredZips={filteredZips} findUserLocation={this.findUserLocation} handleDateFilter={this.handleDateFilter} startDate={startDate} handleDateFilterSubmit={this.handleDateFilterSubmit} dateRange={dateRange} errorMessage={errorMessage} />
-					</div>
+
+
 
 					<div className={styles.mapContainer}>
 						<Map
@@ -542,6 +498,9 @@ class MainMapContainer extends React.Component {
 
 						</ Map>
 					</div>
+					<div className={styles.filterContainer}>
+						<Filters handleZipFilter={this.handleZipFilter} filtered={filtered} handleZipFilterSubmit={this.handleZipFilterSubmit} removeFilter={this.removeFilter} filteredZips={filteredZips} findUserLocation={this.findUserLocation} handleDateFilter={this.handleDateFilter} startDate={startDate} handleDateFilterSubmit={this.handleDateFilterSubmit} dateRange={dateRange} errorMessage={errorMessage} />
+					</div>
 				</div>
 
 				<div className={styles.listContainer}>
@@ -556,9 +515,9 @@ class MainMapContainer extends React.Component {
 						<div className={styles.checkoutContainer}>
 							<StripeProvider apiKey="pk_test_pQhnuyRSReWhY1em9BsAasjo00RX9j436Y">
 								<div className="example">
-								<h1>React Stripe Elements Example</h1>
+									<h1>React Stripe Elements Example</h1>
 									<Elements>
-										<CheckoutForm submit={this.handleCheckout}/>
+										<CheckoutForm submit={this.handleCheckout} />
 									</Elements>
 								</div>
 							</StripeProvider>
@@ -589,5 +548,5 @@ class MainMapContainer extends React.Component {
 }
 
 export default GoogleApiWrapper({
-	// apiKey: mapConfig.API_KEY
+	apiKey: mapConfig.API_KEY
 })(MainMapContainer);

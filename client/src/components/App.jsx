@@ -7,7 +7,7 @@ import Schedule from './Schedule/Schedule.jsx'
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state  =  {
+        this.state = {
             page: 1,
             showMenu: false
         }
@@ -17,24 +17,24 @@ class App extends React.Component {
 
     //conditionally rendering correct page
     changePage() {
-        let newPage =  this.state.page+1;
-        this.setState({page: newPage})
+        let newPage = this.state.page + 1;
+        this.setState({ page: newPage })
     }
 
     toggleMenu() {
-        let {showMenu} = this.state;
+        let { showMenu } = this.state;
         if (showMenu) {
-            this.setState({showMenu: false})
+            this.setState({ showMenu: false })
         } else {
-            this.setState({showMenu: true})
+            this.setState({ showMenu: true })
         }
     }
 
     //this should render the correct page based on whether someone is  signed in (signup page vs homepage)
-    render()  {
+    render() {
         let { page, showMenu } = this.state;
         let menu = <div></div>;
-        let containerStyle = {position: 'relative'};
+        let containerStyle = { position: 'relative' };
         let mapStyle = null;
         let menuStyle = null;
         if (showMenu) {
@@ -55,22 +55,24 @@ class App extends React.Component {
 
         if (page === 1) {
             return (
-              <div className={styles.backgrounds}>
-                <div className={styles.title}>ParkShare</div>
+                <div className={styles.backgrounds}>
+                    <div className={styles.title}>ParkShare</div>
                     <Parent changePage={this.changePage} />
-                <button onClick={this.changePage}>Go to map</button>
-              </div>
-            );
-        } else if (page  === 2)  {
-            return (
-            <div>
-                <div className={styles.menuImgContainer} onClick={this.toggleMenu}><img className={styles.menuImg} src='https://www.freeiconspng.com/uploads/menu-icon-8.png'></img></div>
-                <div className={styles.title}>ParkShare</div>
-                <div style={containerStyle}>
-                    <div styles={showMenu ? menuStyle : ''}>{menu}</div>
-                    <div styles={showMenu ? mapStyle : ''}><Map /></div>
+                    <button onClick={this.changePage}>Go to map</button>
                 </div>
-              </div>
+            );
+        } else if (page === 2) {
+            return (
+                <div>
+                    <div className={styles.menuImgContainer} onClick={this.toggleMenu}>Reservations
+                    {/* <img className={styles.menuImg} src='https://www.freeiconspng.com/uploads/menu-icon-8.png'></img> */}
+                    </div>
+                    <div className={styles.title}>ParkShare</div>
+                    <div style={containerStyle}>
+                        <div styles={showMenu ? menuStyle : ''}>{menu}</div>
+                        <div styles={showMenu ? mapStyle : ''}><Map /></div>
+                    </div>
+                </div>
             )
         }
     }
