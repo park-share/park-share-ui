@@ -58,7 +58,7 @@ class App extends React.Component {
                 <div className={styles.backgrounds}>
                     <div className={styles.title}>ParkShare</div>
                     <Parent changePage={this.changePage} />
-                    <button onClick={this.changePage}>Go to map</button>
+                    {/* <button onClick={this.changePage}>Go to map</button> */}
                 </div>
             );
         } else if (page === 2) {
