@@ -1,5 +1,5 @@
 import React from 'react';
-import mapConfig from './mapconfig.js';
+import mapConfig from './mapConfig.js';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import Filters from './Filters.jsx';
 import MarkerInfo from './MarkerInfo.jsx';

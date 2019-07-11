@@ -2,7 +2,8 @@ import React from 'react';
 import styles from './AppStyles.css';
 import Parent from "./SignUp/Parent.jsx";
 import Map from './Map/MapMain.jsx';
-import Schedule from './Schedule/Schedule.jsx'
+import Schedule from './Schedule/Schedule.jsx';
+// import Logout from './Logout/Logout.jsx';
 
 class App extends React.Component {
     constructor(props) {
@@ -68,6 +69,7 @@ class App extends React.Component {
                     {/* <img className={styles.menuImg} src='https://www.freeiconspng.com/uploads/menu-icon-8.png'></img> */}
                     </div>
                     <div className={styles.title}>ParkShare</div>
+                  
                     <div style={containerStyle}>
                         <div styles={showMenu ? menuStyle : ''}>{menu}</div>
                         <div styles={showMenu ? mapStyle : ''}><Map /></div>

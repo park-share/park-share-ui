@@ -1,18 +1,40 @@
 import React from "react";
 import styles from "./SignUp.css";
 import axios from "axios";
-
+import { GoogleLogin } from 'react-google-login';
+import config from './config.js';
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: "",
       user_password: "",
-      loginstate: ""
+      loginstate: "",
+      isAuthenticated: false,
+      token:"",
+      user: null
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.validateForm = this.validateForm.bind(this);
+    this.responseGoogle = this.responseGoogle.bind(this);
+    this.logout = this.logout.bind(this);
+    this.onFailure = this.onFailure.bind(this);
+  }
+  logout () {
+    this.setState({
+      isAuthenticated: false,
+      token:'',
+      user: null
+    })
+  };
+
+  onFailure (error) {
+    alert(error)
+  };
+
+  responseGoogle() {
+    console.log('success');
   }
   validateForm() {
     return this.state.email.length > 0 && this.state.user_password.length > 0;
@@ -25,7 +47,6 @@ class LoginPage extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { email, user_password } = this.state;
-    console.log(email, user_password);
     if (this.validateForm()) {
       axios
         .post("/api/login", { email, user_password })
@@ -42,17 +63,14 @@ class LoginPage extends React.Component {
               loginstate: res.data
             });
           }
-          console.log(res.data);
-          // if (res.data.status===422) {
-          //   console.log('hihihi')
-
-          // } else {
-
-          //   this.props.changePage();
-          // }
-          // this.setState({
-          //   loginstate:'successfully signed in'
-          // })
+          if (res.data.status===422) {
+            console.log('hihihi')
+          } else {
+            this.props.changePage();
+          }
+          this.setState({
+            loginstate:'successfully signed in'
+          })
         })
         .catch(err => {
           console.log("thisis the err", err);
@@ -65,8 +83,27 @@ class LoginPage extends React.Component {
   }
   render() {
     const { username, password, loginstate } = this.state;
+    
+    let content = !!this.state.isAuthenticated ?  
+    (
+      <div>
+        <p>Authenticated</p>
+       
+        <div>
+          <button onClick={this.logout} className="button"> Log out</button>
+        </div>
+      </div>
+    ) :
+    (
+      <div>
+        <GoogleLogin
+            clientId={config.googleAuth.clientID}
+            onSuccess={this.props.changePage()}
+            onFailure={this.onFailure}
+        />
+      </div>
+    );
     return (
-
       <div className={styles.info}>
         <div className={styles.signup}>
           <form onSubmit={this.handleSubmit}>
@@ -105,6 +142,7 @@ class LoginPage extends React.Component {
             </button>
           </form>
         </div>
+        {content}
       </div>
     );
   }
