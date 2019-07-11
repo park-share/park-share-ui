@@ -30,7 +30,7 @@ class LoginPage extends React.Component {
   };
 
   onFailure (error) {
-    alert(error)
+    console.log(error)
   };
 
   responseGoogle() {
@@ -98,7 +98,7 @@ class LoginPage extends React.Component {
       <div>
         <GoogleLogin
             clientId={config.googleAuth.clientID}
-            onSuccess={this.props.changePage()}
+            onSuccess={this.responseGoogle}
             onFailure={this.onFailure}
         />
       </div>
